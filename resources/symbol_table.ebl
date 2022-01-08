@@ -1,0 +1,54 @@
+Token			Lexeme					Description
+
+INTEGER			Data Type				Integer data type
+a			Identifier				Variable 'a'
+=			Operator				Assignment Operator
+9			Constant				Integer constant value
+,			Delimeter and Bracket			Separates statements
+x			Identifier				Variable 'x'
+,			Delimeter and Bracket			Separates statements
+y			Identifier				Variable 'y'
+STRING			Data Type				String data type
+NAME			Identifier				Variable 'NAME'
+=			Operator				Assignment Operator
+"			Delimeter and Bracket			Double quotation
+ELY			Constant				String constant value
+"			Delimeter and Bracket			Double quotation
+,			Delimeter and Bracket			Separates statements
+-age			Identifier				Variable '-age'
+= 			Operator				Assignment Operator
+"			Delimeter and Bracket			Double quotation
+18			Constant				String constant value
+"			Delimeter and Bracket			Double quotation
+CHAR			Data Type				Character data type
+A			Identifier				Variable 'A'
+a			Identifier				Variable 'a'
+:=			Operator				Assignment Operator
+GET			Reserved/Keyword			Input statement
+(			Delimeter and Bracket			Open parenthesis
+)			Delimeter and Bracket			Close parenthesis
+if			Reserved/Keyword			Conditional statement
+A			Identifier				Variable 'A'
+>=			Operator				Relational Operator
+5			Constant				Integer constant value
+VIEW			Researved/Keyword			Output statement
+(			Delimeter and Bracket			Open parenthesis
+"			Delimeter and Bracket			Double quotation
+A =			Constant				String constant value
+"			Delimeter and Bracket			Double qutation
+,			Delimeter and Bracket			Separates statement
+A			Identifier				Variable 'A'
+)			Delimeter and Bracket			Close parenthesis
+LOOP			Reserved/Keyword			Looping/Repetition statement
+(			Delimeter and Bracket			Open parenthesis
+a			Identifier				Variable 'a'
+TIMES			Reserved/Keyword			Looping/Repetition statement
+)			Delimeter and Bracket			Close parenthesis
+DO			Reserved/Keyword			Looping/Repetition statement
+{			Delimeter and Bracket			Group statements - Open brace
+x			Identifier				Variable 'x'
+=			Operator				Assignement Operator
+x			Identifier				Variable 'x'
++			Operator				Arithmetic Operator
+6			Constant				Integer constant value
+}			Delimeter and Bracket			Group statement - Close brace

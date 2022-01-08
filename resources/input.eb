@@ -1,0 +1,8 @@
+INTEGER a = 9, x, y
+STRING NAME = "ELY", -age = "18"
+CHAR A
+a := GET()
+if A >= 5 VIEW("A = ", A)
+LOOP (a TIMES) DO
+{ x = x + 6
+}

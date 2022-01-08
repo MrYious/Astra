@@ -1,0 +1,8 @@
+int a = 9, x, y;
+string NAME = "mark", age = "21";
+char A;
+a = scan();
+if(A >= 5) then print(" More than 5 ");
+for x in range (a) do
+{ x = x + 6
+}

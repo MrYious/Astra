@@ -1,0 +1,55 @@
+TOKEN
+    LEXEME              DESCRIPTION
+
+
+Operator -
+    + - * / % ^         Arithmetic Operator
+    == > >= < <= <>     Relational Operator
+    ! | &               Logical Operator
+    =                   Assignment Operator
+
+Delimeter and Bracket-
+    ;                   Terminator 
+    "                   Double Quotation
+    '                   Single Quotation
+    ,                   Separator
+    (                   Open Parenthesis
+    )                   Close Parenthesis
+    {                   Group Statement - Open Brace
+    }                   Group Statement - Close Brace
+
+
+COMMENT-
+    !*                  Single-Line Comment
+    !**                 Multi-Line Comment - Open
+    *!                  Multi-Line Comment - Close
+    ...                 Comment Message
+
+
+Constant
+    (0-9)*              Integer Constant Value
+    a-z                 Character Constant Value
+    (A-z)*              String Constant Value
+
+Indentifier
+    ((azAZ)*(0-9)*)*    Variable 'x'
+
+Data Type-
+    int                 Integer Data Type
+    char                Character Data Type
+    bool                Boolean Data Type
+    float               Float Data Type
+    string              String Data Type
+
+
+Reserved / Keyword-
+    scan                Input Statement
+    print               Output Statement
+    if                  Conditional Statement
+    then                Conditional Statement
+    else                Conditional Statement
+    for                 Looping/Repetition Statement
+    in                  Looping/Repetition Statement
+    range               Looping/Repetition Statement
+    do                  Looping/Repetition Statement
+
