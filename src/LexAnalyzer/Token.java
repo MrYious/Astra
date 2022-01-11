@@ -12,10 +12,8 @@ public class Token {
         this.description = description;
     }
 
-    void print(){
-        System.out.print(
-            lexeme + "\t\t" + token + "\t\t" + description
-        );
+    String getInformation(){
+        return lexeme + "\t\t" + token + "\t\t" + description;
     }
 
 }

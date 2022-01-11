@@ -31,7 +31,7 @@ if			Reserved/Keyword			Conditional statement
 A			Identifier				Variable 'A'
 >=			Operator				Relational Operator
 5			Constant				Integer constant value
-VIEW			Researved/Keyword			Output statement
+VIEW			Reserved/Keyword			Output statement
 (			Delimeter and Bracket			Open parenthesis
 "			Delimeter and Bracket			Double quotation
 A =			Constant				String constant value

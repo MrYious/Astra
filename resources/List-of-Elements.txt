@@ -2,13 +2,13 @@ TOKEN
     LEXEME              DESCRIPTION
 
 
-Operator -
+Operator
     + - * / % ^         Arithmetic Operator
-    == > >= < <= <>     Relational Operator
+    == > >= < <= <>     Relational Operator             
     ! | &               Logical Operator
     =                   Assignment Operator
 
-Delimeter and Bracket-
+Delimeter and Bracket
     ;                   Terminator 
     "                   Double Quotation
     '                   Single Quotation
@@ -18,8 +18,7 @@ Delimeter and Bracket-
     {                   Group Statement - Open Brace
     }                   Group Statement - Close Brace
 
-
-COMMENT-
+COMMENT                                                
     !*                  Single-Line Comment
     !**                 Multi-Line Comment - Open
     *!                  Multi-Line Comment - Close
@@ -29,10 +28,19 @@ COMMENT-
 Constant
     (0-9)*              Integer Constant Value
     a-z                 Character Constant Value
+    true + false        Boolean Constant Value
+    (0-9)^+ . (0-9)*    Float Constant Value    
     (A-z)*              String Constant Value
 
-Indentifier
-    ((azAZ)*(0-9)*)*    Variable 'x'
+
+
+
+
+
+
+Indentifier-
+    ((azAZ)*(0-9)*_*)*    Variable 'x'
+
 
 Data Type-
     int                 Integer Data Type
@@ -40,7 +48,6 @@ Data Type-
     bool                Boolean Data Type
     float               Float Data Type
     string              String Data Type
-
 
 Reserved / Keyword-
     scan                Input Statement
@@ -52,4 +59,21 @@ Reserved / Keyword-
     in                  Looping/Repetition Statement
     range               Looping/Repetition Statement
     do                  Looping/Repetition Statement
+
+
+Variable Declaration 
+
+Variable Initialization
+    - Variable
+    - Constant
+    - Expression
+    - Input
+
+Conditional Statement
+
+Arithmetic Operation
+
+Looping Statement
+
+Input/Output Statement
 

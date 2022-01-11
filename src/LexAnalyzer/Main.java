@@ -4,11 +4,12 @@ package LexAnalyzer;
     
     [/] Validate the Input File based on extension
     [/] Text File -> Array of String per Line 
-    [] File Write for the "symbol_table" Output File
+    [/] File Write for the "symbol_table" Output File
 
 */
 
 import java.io.File;
+import java.io.FileWriter;  
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ public class Main {
         String file_path;
         File file;
 
-
         Scanner scan = new Scanner(System.in);
         do{
             System.out.println("\nEnter the path of the source file: ");            
@@ -33,7 +33,7 @@ public class Main {
             
         }while( !isExist(file) || !isValid(file_path) );              
         scan.close();
-               
+        
         ArrayList<String> lines = prepareFile(file);
         
         // int i = 0;
@@ -41,10 +41,13 @@ public class Main {
         //     System.out.println(++i + " " + line);
         // }
         
-        //To-Do
-        //  Lexer lexer = new Lexer(lines);                     
-        //  ArrayList<Token> tokens = lexer.execute();      //Array of Tokens with complete information
-
+        //  To-Do: 
+        //      Complete Lexer  
+        
+        Lexer lexer = new Lexer(lines);                     
+        ArrayList<Token> tokens = lexer.execute();      //Array of Tokens with complete information
+        
+        //  writeSymbolTable(tokens);
     }
 
     
@@ -54,6 +57,7 @@ public class Main {
                 
         Scanner fileScan = new Scanner(file);
         String line;
+        
         while (fileScan.hasNextLine()) {                
             line = fileScan.nextLine();
             lines.add(line);
@@ -76,5 +80,21 @@ public class Main {
             return false;
         }
         return true;
+    }
+
+    private static void writeSymbolTable(ArrayList<Token> tokens){
+        try{    
+            FileWriter fw = new FileWriter("E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\symbol_table.astl");    
+            
+            for (Token token : tokens) {
+                fw.write(token.getInformation());
+            }
+
+            fw.close();    
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        System.out.println("\nSymbol Table has been successfully generated!\n"); 
     }
 }
