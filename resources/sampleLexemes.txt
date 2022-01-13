@@ -1,0 +1,75 @@
+true | false
+Line 1: int a = 9, x, y;
+true | false
+Line 2: String NAME = "mark", age = "21";
+true | false
+Line 3: char A=;
+true | false
+Line 4: a = scan();
+true | false
+Line 5: bool x = true == true;
+true | false
+Line 6: string a = "     l
+true | true
+Line 7:  l
+true | true
+Line 8:  123 Hello  ";
+true | false
+Line 9: if(A == 5) then print(" More than 5 ");
+true | false
+Line 10: for x in range(a) do
+true | false
+Line 11: { x = x + 6
+true | false
+Line 12: }
+
+1 int
+2 a
+3 =
+4 9,
+5 x,
+6 y;
+7 String
+8 NAME
+9 =
+10 "mark"
+11 ,
+12 age
+13 =
+14 "21"
+15 ;
+16 char
+17 A=;
+18 a
+19 =
+20 scan();
+21 bool
+22 x
+23 =
+24 true
+25 ==
+26 true;
+27 string
+28 a
+29 =
+30 "     l l 123 Hello  "
+31 ;
+32 if(A
+33 ==
+34 5)
+35 then
+36 print(
+37 " More than 5 "
+38 );
+39 for
+40 x
+41 in
+42 range(a)
+43 do
+44 {
+45 x
+46 =
+47 x
+48 +
+49 6
+50 }

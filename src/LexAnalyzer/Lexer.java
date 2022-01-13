@@ -3,73 +3,137 @@ package LexAnalyzer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/*  TO-DO list
-    
-    [] string lock
-    [] comment lock
-
-    // E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\input.ast
-*/
-
-
 public class Lexer {
     
-    boolean stringlock = false;
-    boolean commentlock = false;
-    int index;
+    private boolean stringlock = false;
+    private boolean commentlockS = false;
+    private boolean commentlockM = false;
+    private int index;
+    private String s = "";
 
-    Dictionary data = new Dictionary();
-
+    private Dictionary data = new Dictionary();
     private ArrayList<String> lines;
-
+    
     Lexer(ArrayList<String> lines){
         this.lines = lines;
     }
 
+    //Main Function
     ArrayList<Token> execute(){
         ArrayList<Token> tokens = new ArrayList<>();
-        //  BlankF  False   skip
-        //  BlankF  True    read
-        //  BlankT  True    read
-        //  BlankT  True    read
+        ArrayList<String> lexemes = new ArrayList<>();
+
+        int l = 0;                                                          //R
         for (String line : lines) {
-            if(!line.isBlank()){
-                // tokens.add(scan(line));
-                scan(line);                
-            }else{
-                if(stringlock){
-                    scan(line); 
-                }
+            if(!line.isBlank() || stringlock || commentlockM){
+                System.out.println("Line " + ++l + ": " + line);            //R
+                lexemes.addAll(split(line));                
             }
+        }
+        if(!s.isEmpty() ){ 
+            lexemes.add(s);
+            s = "";
+        }
+
+        int t = 0;                                                  //R
+        for (String string : lexemes) {                             //R
+            System.out.println(++t + " " + string);                 //R
         }
 
         return tokens;
     }
+    
+    // Todo: FOR comments
+    // Convert line string to lexemes    
+    // ArrayList<String> split(String line){
+    //     ArrayList<String> strings = new ArrayList<>();
 
-    void scan(String line){
-        //To-do
-        // Token token;
-        // Machine machine = new Machine();   
+    //     if(commentlockM && line.contains("*!")){
+    //         s += line + "\n";
+    //     }else if( line.contains("!** ") || 
+    //         line.contains("\"")  || 
+    //         line.contains("!*")  || 
+    //         line.contains("*!")  ||
+    //         stringlock
+    //     ){  
+    //         char c;
 
-        // for (String string : lines.split"") {
-            
-        // }
+    //         for(int i = 0; i < line.length(); i++){
+    //             c = line.charAt(i);
 
-        ArrayList<String> strings;
-        System.out.println(line);
-        strings = split(line);
+    //             if((commentlockS || stringlock) && (c != '*' && c != '"' )){
+    //                 s += c ;
+    //             }else if(Character.isWhitespace(c) && !s.isEmpty()){                    
+    //                 strings.add(s);
+    //                 s = "";
+    //             }else {               
+                    
+    //                 if(c == '!' && line.charAt(i+1) == '*' ){
+    //                     if(!s.isEmpty()){
+    //                         strings.add(s);
+    //                     }
+    //                     if(line.charAt(i+2) == '*'){
+    //                         s =  "!**";
+    //                         commentlockM = true;
+    //                         i = i+2;
+    //                     }else{
+    //                         s = "!*";
+    //                         commentlockS = true;
+    //                         i++;
+    //                     }
+
+    //                 }else if(c == '*' && line.charAt(i+1) == '!' ){
+    //                     i++;
+    //                     s += "*!";
+    //                     strings.add(s);
+    //                     s = "";
+    //                     stringlock = true;
+    //                 }else if(c == '\"'){
+    //                     if(stringlock){
+    //                         s += c;
+    //                         strings.add(s);
+    //                         s = "";
+    //                         stringlock = false;
+    //                     }else{
+    //                         if(!s.isEmpty())
+    //                             strings.add(s);                       
+    //                         s = "" + c;
+    //                         stringlock = true;
+    //                     }
+    //                 }
+    //             }
+                
+    //         }
+    //         if(!s.isEmpty() && !stringlock && !commentlockM){ 
+    //             strings.add(s);
+    //             s = "";
+    //         }
+
+
+
+    //     }else
+    //         strings = new ArrayList<>(Arrays.asList(line.split(" ")));   
+
+    //     return strings;
+    // }
+
+
+    //To-do: Lexemes to Tokens
+    // ArrayList<Token> scan(String line){
+    //     
+    //     Token token;
+    //     // Machine machine = new Machine();   
+
+
         
-        int i = 0;
-        for (String string : strings) {
-            System.out.println(++i + " " + string);
-        }
         
-        System.out.println();
+        
+    //     System.out.println();
         
 
          
-        // return token;
-    }
+    //     return token;
+    // }
 
     
 
@@ -107,11 +171,6 @@ public class Lexer {
         // return token;
     }
 
-    // public enum State {
-    //     START, Q1, Q2, Q3, Q4, Q5, Q6, Q7, INVALID
-    // }
-    
-    
     boolean isValidCharacter(char c){
         if( data.validChars.contains(String.valueOf(c)) ||  
             Character.isLetter(c) || 
@@ -134,52 +193,5 @@ public class Lexer {
         return false;
     }
 
-    // Convert string to array of possible lexemes
-    ArrayList<String> split(String line){
-        ArrayList<String> strings = new ArrayList<>();
-
-        if(line.matches("(.*)\"(.*)")){
-            boolean spacelock = false;
-            String s = "";
-            char c;
-
-            for(int i = 0; i < line.length(); i++){
-                c = line.charAt(i);
-
-                if(!Character.isWhitespace(c) || spacelock){
-                    if(c == '\"'){
-                        if(spacelock){
-                            s += c;
-                            strings.add(s);
-                            s = "";
-                            spacelock = false;
-                        }else{
-                            if(!s.isEmpty())
-                                strings.add(s);                       
-                            s = "" + c;
-                            spacelock = true;
-                        }                       
-
-                    }else 
-                        s += c;
-                    
-
-                }else{
-                    strings.add(s);
-                    s = "";
-                }
-            }
-            
-            if(!s.isEmpty()){ 
-                strings.add(s);
-            }
-
-        }else
-            strings = new ArrayList<>(Arrays.asList(line.split(" "))); 
-                
-        return strings;
-    }
-}
-
-
     
+}
