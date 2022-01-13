@@ -3,183 +3,240 @@ package LexAnalyzer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.CharacterAction;
+
 public class Lexer {
-    
-    private boolean stringlock = false;
-    private boolean commentlockS = false;
-    private boolean commentlockM = false;
-    private int index;
-    private String s = "";
+
+    public enum State {
+        INITIAL,    //Start
+        Q1,         //Keywords, Datatype, Identifier, Boolean constant
+        Q2,         //Integer Constant
+        Q3,         //Operators
+
+        Q4,         //Comment - MultiLine    
+        Q5,         //Comment - Single-Line
+        Q6,         //Character
+        Q7,         //String
+        Q8,         //Float Constant
+        INVALID     //Unrecognized Token
+    }
+
+
+    private State curState = State.INITIAL;
 
     private Dictionary data = new Dictionary();
-    private ArrayList<String> lines;
+    private String lines;
     
-    Lexer(ArrayList<String> lines){
+    Lexer(String lines){
         this.lines = lines;
     }
 
     //Main Function
-    ArrayList<Token> execute(){
+    ArrayList<Token> scan(){
         ArrayList<Token> tokens = new ArrayList<>();
-        ArrayList<String> lexemes = new ArrayList<>();
+        String lexeme = "";
+        char c;
+        for(int i = 0; i < lines.length();){
+            c = lines.charAt(i);
+            switch(curState){
+                case INITIAL:
+                    if(Character.isAlphabetic(c)){
+                        curState = State.Q1;                        
+                    }else if(Character.isDigit(c) ){
+                        curState = State.Q2;
+                    }else if(Character.isWhitespace(c)){
+                        curState = State.INITIAL;
+                        i++;
+                    }else {
+                        curState = State.Q3;
+                    }
+                    break;
 
-        int l = 0;                                                          //R
-        for (String line : lines) {
-            if(!line.isBlank() || stringlock || commentlockM){
-                System.out.println("Line " + ++l + ": " + line);            //R
-                lexemes.addAll(split(line));                
+                case Q1:
+                    if(Character.isWhitespace(c)){
+                        print(lexeme);
+                        lexeme = "";
+                        curState = State.INITIAL;                        
+                        i++;
+                    }else if(Character.isAlphabetic(c) || Character.isDigit(c) || c == '_' ){
+                        lexeme += c;                        
+                        curState = State.Q1;
+                        i++;
+                    }else{
+                        //TO-DO
+                        curState = State.INVALID;
+                    }
+                    break;
+
+                case Q2:
+                    
+                    if(Character.isAlphabetic(c)){
+                        curState = State.INVALID;                        
+                    }else if(Character.isDigit(c)){
+                        lexeme += c;                        
+                        curState = State.Q2;
+                        i++;                        
+                    }else if(Character.isWhitespace(c)){
+                        print(lexeme);
+                        lexeme = "";
+                        curState = State.INITIAL;                        
+                        i++;
+                    }else {
+                        //TO-DO
+                        if(c == '.'){
+                            lexeme += c;                        
+                            curState = State.Q8;
+                            i++;
+                        }
+                        curState = State.INVALID;
+                    }
+
+                    break;
+
+                case Q3:
+                    String s = String.valueOf(c);
+                    char s1 = lines.charAt(i+1);
+                    char s2 = lines.charAt(i+2);
+
+                    
+                    if(data.validSymbols.contains(s)){
+                        lexeme += s;                        
+                        i++;
+                        
+                        if(Character.isWhitespace(s1)){
+                            print(lexeme);
+                            lexeme = "";
+                            curState = State.INITIAL;  
+                        }else if(Character.isAlphabetic(s1)){
+                            print(lexeme);
+                            lexeme = "";
+                            curState = State.Q1;  
+                        }else if(Character.isDigit(s1)){
+                            print(lexeme);
+                            lexeme = "";
+                            curState = State.Q2;
+                        }else{
+                            if( (s+s1).equals("==") ||
+                                (s+s1).equals("<=") ||
+                                (s+s1).equals(">=") ||
+                                (s+s1).equals("<>")                      
+                            ){
+                                lexeme += s1;
+                                i++;
+                                print(lexeme);
+                                lexeme = "";
+                                curState = State.INITIAL;                         
+                            }else if((s+s1).equals("!*")){
+                                lexeme += s1;
+                                print(lexeme);
+                                lexeme = "";
+                                curState = State.INITIAL;  
+                            }else if((s+s1+s2).equals("!**")){
+                                lexeme += s1 + s2; 
+                            }else {
+                                curState = State.INVALID;
+                            }                        
+                        }
+
+                    }else{
+                        curState = State.INVALID;
+                    }
+                    
+
+                    
+                    break;
+                case Q4:
+                    
+                    break;
+                case Q5:
+                    
+                    break;
+                case Q6:
+                    
+                    break;
+                case Q7:
+                    break;
+
+                case Q8:
+                    if(Character.isAlphabetic(c)){
+                        curState = State.INVALID;                        
+                    }else if(Character.isDigit(c)){
+                        lexeme += c;                        
+                        curState = State.Q8;
+                        i++;                        
+                    }else if(Character.isWhitespace(c)){
+                        print(lexeme);
+                        lexeme = "";
+                        curState = State.INITIAL;                        
+                        i++;
+                    }else {
+                        //TO-DO
+                        curState = State.INVALID;
+                    }
+                    break;
+
+                case INVALID:
+                    if(Character.isWhitespace(c)){
+                        print(lexeme);
+                        lexeme = "";
+                        curState = State.INITIAL;
+                        i++;
+                    }else if(Character.isAlphabetic(c)){
+
+                    }else if(Character.isDigit(c)){
+                    }else if(!data.validSymbols.contains(String.valueOf(c)) ){
+                        lexeme += c;
+                        print(lexeme);
+                        lexeme = "";
+                        curState = State.INITIAL;
+                        i++;
+                    }else{
+                        lexeme += c;
+                        i++;
+                    }
+                    break;    
             }
-        }
-        if(!s.isEmpty() ){ 
-            lexemes.add(s);
-            s = "";
-        }
-
-        int t = 0;                                                  //R
-        for (String string : lexemes) {                             //R
-            System.out.println(++t + " " + string);                 //R
+        
         }
 
         return tokens;
     }
-    
-    // Todo: FOR comments
-    // Convert line string to lexemes    
-    // ArrayList<String> split(String line){
-    //     ArrayList<String> strings = new ArrayList<>();
-
-    //     if(commentlockM && line.contains("*!")){
-    //         s += line + "\n";
-    //     }else if( line.contains("!** ") || 
-    //         line.contains("\"")  || 
-    //         line.contains("!*")  || 
-    //         line.contains("*!")  ||
-    //         stringlock
-    //     ){  
-    //         char c;
-
-    //         for(int i = 0; i < line.length(); i++){
-    //             c = line.charAt(i);
-
-    //             if((commentlockS || stringlock) && (c != '*' && c != '"' )){
-    //                 s += c ;
-    //             }else if(Character.isWhitespace(c) && !s.isEmpty()){                    
-    //                 strings.add(s);
-    //                 s = "";
-    //             }else {               
-                    
-    //                 if(c == '!' && line.charAt(i+1) == '*' ){
-    //                     if(!s.isEmpty()){
-    //                         strings.add(s);
-    //                     }
-    //                     if(line.charAt(i+2) == '*'){
-    //                         s =  "!**";
-    //                         commentlockM = true;
-    //                         i = i+2;
-    //                     }else{
-    //                         s = "!*";
-    //                         commentlockS = true;
-    //                         i++;
-    //                     }
-
-    //                 }else if(c == '*' && line.charAt(i+1) == '!' ){
-    //                     i++;
-    //                     s += "*!";
-    //                     strings.add(s);
-    //                     s = "";
-    //                     stringlock = true;
-    //                 }else if(c == '\"'){
-    //                     if(stringlock){
-    //                         s += c;
-    //                         strings.add(s);
-    //                         s = "";
-    //                         stringlock = false;
-    //                     }else{
-    //                         if(!s.isEmpty())
-    //                             strings.add(s);                       
-    //                         s = "" + c;
-    //                         stringlock = true;
-    //                     }
-    //                 }
-    //             }
-                
-    //         }
-    //         if(!s.isEmpty() && !stringlock && !commentlockM){ 
-    //             strings.add(s);
-    //             s = "";
-    //         }
-
-
-
-    //     }else
-    //         strings = new ArrayList<>(Arrays.asList(line.split(" ")));   
-
-    //     return strings;
-    // }
-
-
-    //To-do: Lexemes to Tokens
-    // ArrayList<Token> scan(String line){
-    //     
-    //     Token token;
-    //     // Machine machine = new Machine();   
-
-
-        
-        
-        
-    //     System.out.println();
-        
-
-         
-    //     return token;
-    // }
 
     
 
-    void match(String line, String l){
-        // Token token;
-        // String lexeme;
-        TokenType tokenType;
-        // String description;        
+    // void match(String line, String l){
+    //     // Token token;
+    //     // String lexeme;
+    //     TokenType tokenType;
+    //     // String description;        
         
-        //For (5/7)
-        System.out.print(l + "");
+    //     //For (5/7)
+    //     System.out.print(l + "");
 
-        if( data.operator.containsKey(l)){ 
-            l = l.concat( String.valueOf(line.charAt(index + 1)));
-            if(data.operator.containsKey(l)){
-                index++;
-                tokenType = TokenType.OPERATOR;
-                System.out.println("\t\t M-Operator");
-            }else{
-                tokenType = TokenType.OPERATOR;
-                System.out.println("\t\t Operator");
-            }
-        }else if(data.delimeter.containsKey(l)){
-            tokenType = TokenType.DELIMETER_BRACKET;
-            System.out.println("\t\t Delimeter");
-        }else if(data.comment.containsKey(l)){
-            tokenType = TokenType.COMMENT;
-            System.out.println("\t\t Comment");
-        }else{
+    //     if( data.operator.containsKey(l)){ 
+    //         l = l.concat( String.valueOf(line.charAt(index + 1)));
+    //         if(data.operator.containsKey(l)){
+    //             index++;
+    //             tokenType = TokenType.OPERATOR;
+    //             System.out.println("\t\t M-Operator");
+    //         }else{
+    //             tokenType = TokenType.OPERATOR;
+    //             System.out.println("\t\t Operator");
+    //         }
+    //     }else if(data.delimeter.containsKey(l)){
+    //         tokenType = TokenType.DELIMETER_BRACKET;
+    //         System.out.println("\t\t Delimeter");
+    //     }else if(data.comment.containsKey(l)){
+    //         tokenType = TokenType.COMMENT;
+    //         System.out.println("\t\t Comment");
+    //     }else{
             
-        }
+    //     }
         
 
         // token = new Token(lexeme, tokenType, description);
-        // return token;
-    }
-
-    boolean isValidCharacter(char c){
-        if( data.validChars.contains(String.valueOf(c)) ||  
-            Character.isLetter(c) || 
-            Character.isWhitespace(c)
-        ){                
-            return true;
-        }
-        return false;
-    }
+    //     // return token;
+    // }
 
     // Checks token match
     boolean isContains(String l, String [] data ){
@@ -193,5 +250,8 @@ public class Lexer {
         return false;
     }
 
-    
+    void print(String str){
+        System.out.println(str);
+    }
+
 }

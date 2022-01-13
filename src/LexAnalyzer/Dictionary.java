@@ -4,13 +4,15 @@ import java.util.HashMap;
 
 public class Dictionary {
 
-    String validChars = "+-*/^%=><!|&;\"',(){}_0123456789";
+    // String set1 = "+-*/^%|&;,(){}";    //14
+    String validSymbols = "+-*/^%>=<!|&;,(){}\"'!";
 
     HashMap<String, String> operator = new HashMap<>();
     HashMap<String, String> delimeter = new HashMap<>();
     HashMap<String, String> comment = new HashMap<>();
     HashMap<String, String> datatype = new HashMap<>();
     HashMap<String, String> keyword = new HashMap<>();
+    
     
     Dictionary(){
         operator.put("+", "Arithmetic Operator");
@@ -59,33 +61,8 @@ public class Dictionary {
         keyword.put("in",      "Looping/Repetition Statement");
         keyword.put("range",   "Looping/Repetition Statement");
         keyword.put("do",      "Looping/Repetition Statement");
+
+
     }
-
-    // String [] operator = { 
-    //     "+", "-", "*", "/", "^", "%",       
-    //     "==", ">", ">=", "<", "<=", "<>",  //Multiple
-    //     "!", "|", "&",                      
-    //     "="                                 
-    // };
-    
-    // String [] delimeter = { 
-    //     ";", "\"", "'", ",", "(", ")",       
-    //     "{", "}"          
-    // };
-
-    // String [] comment = { 
-    //     "!*", "!**", "*!"
-    // };
-
-    
-    // String [] datatype = { 
-    //     "int", "char", "bool", "float", "String",
-    // };
-    
-    // String [] keyword = { 
-    //     "scan", "print", 
-    //     "if", "then", "else",
-    //     "for", "in", "range", "do"
-    // };
     
 }

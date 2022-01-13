@@ -1,4 +1,4 @@
-int a = 9, x, y;
+int a =9, x, y;
 String NAME = "mark", age = "21";
 char A=;
 a = scan();
@@ -7,6 +7,10 @@ bool x = true == true;
     This a multi line Comment
             Hellow World
 *!
+
+
+
+
 string a = "     l
  l
  123 Hello  ";

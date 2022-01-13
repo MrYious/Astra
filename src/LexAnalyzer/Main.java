@@ -38,9 +38,11 @@ public class Main {
 
         header();
         file = getSourceFile();                         //Locate the source file
-        ArrayList<String> lines = scanFile(file);       //Convert source file into array of strings
+        String lines = scanFile(file);                  //Convert source file into a string
+
+        // System.out.println(lines);
         Lexer lexer = new Lexer(lines);                 //Lexical Analyzer object
-        ArrayList<Token> tokens = lexer.execute();      //Convert array of strings into Tokens 
+        ArrayList<Token> tokens = lexer.scan();         //Convert into Tokens 
         
         // writeSymbolTable(tokens);                       //Write tokens in the symbol table file
     }
@@ -81,8 +83,8 @@ public class Main {
         return file;
     }
 
-    private static ArrayList<String> scanFile(File file) throws FileNotFoundException{
-        ArrayList<String> lines = new ArrayList<>();
+    private static String scanFile(File file) throws FileNotFoundException{
+        String lines = "";
         System.out.println();
                 
         Scanner fileScan = new Scanner(file);
@@ -90,7 +92,7 @@ public class Main {
         
         while (fileScan.hasNextLine()) {                
             line = fileScan.nextLine();
-            lines.add(line);
+            lines += line + "\n";
         }
         fileScan.close();
         return lines;
