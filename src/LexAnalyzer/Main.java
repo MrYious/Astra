@@ -36,15 +36,13 @@ public class Main {
 
         File file;
 
-        header();
+        // header();
         file = getSourceFile();                         //Locate the source file
         String lines = scanFile(file);                  //Convert source file into a string
 
-        // System.out.println(lines);
         Lexer lexer = new Lexer(lines);                 //Lexical Analyzer object
-        ArrayList<Token> tokens = lexer.scan();         //Convert into Tokens 
-        
-        // writeSymbolTable(tokens);                       //Write tokens in the symbol table file
+        ArrayList<Token> tokens = lexer.execute();      //Convert into Tokens               
+        writeSymbolTable(tokens);                       //Write tokens in the symbol table file
     }
   
     private static void header(){
@@ -100,10 +98,14 @@ public class Main {
 
     private static void writeSymbolTable(ArrayList<Token> tokens){
         try{    
+            int i = 0;            
             FileWriter fw = new FileWriter("E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\symbol_table.astl");    
             
+            fw.write("************\t\t\t************\t\t\t\t*****************\n");
+            fw.write("*  TOKENS  *\t\t\t*  LEXEME  *\t\t\t\t*  DESCRIPTION  *\n");
+            fw.write("************\t\t\t************\t\t\t\t*****************\n\n");
             for (Token token : tokens) {
-                fw.write(token.getInformation());
+                fw.write(++i + ":  " + token.getInformation() + "\n");
             }
 
             fw.close();    

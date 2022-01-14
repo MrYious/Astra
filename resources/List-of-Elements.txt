@@ -22,30 +22,26 @@ COMMENT
     !*                  Single-Line Comment
     !**                 Multi-Line Comment - Open
     *!                  Multi-Line Comment - Close
-    ...                 Comment Message
-
+    ...                 Comment Contents
 
 Constant
-    (0-9)*              Integer Constant Value/
+    (0-9)*              Integer Constant Value
     a-z                 Character Constant Value
-    true + false        Boolean Constant Value/
-    (0-9)^+ . (0-9)*    Float Constant Value/ 
+    true + false        Boolean Constant Value
+    (0-9)^+ . (0-9)*    Float Constant Value
     (A-z)*              String Constant Value
 
-
-
-Indentifier/
+Indentifier
     ((azAZ)*(0-9)*_*)*    Variable 'x'
 
-
-Data Type/
+Data Type
     int                 Integer Data Type
     char                Character Data Type
     bool                Boolean Data Type
     float               Float Data Type
-    string              String Data Type
+    String              String Data Type
 
-Reserved / Keyword/
+Reserved / Keyword
     scan                Input Statement
     print               Output Statement
     if                  Conditional Statement
@@ -55,40 +51,4 @@ Reserved / Keyword/
     in                  Looping/Repetition Statement
     range               Looping/Repetition Statement
     do                  Looping/Repetition Statement
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Variable Declaration 
-
-Variable Initialization
-    - Variable
-    - Constant
-    - Expression
-    - Input
-
-Conditional Statement
-
-Arithmetic Operation
-
-Looping Statement
-
-Input/Output Statement
 

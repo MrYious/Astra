@@ -1,14 +1,12 @@
 package LexAnalyzer;
 
 public enum TokenType {
-    OPERATOR,
+    OPERATOR,   
     DELIMETER_BRACKET,
     DATATYPE,
     KEYWORD,
-    COMMENT,
-    
+    INDENTIFIER,    
     CONSTANT,
-    INDENTIFIER,
-    
+    COMMENT, 
     INVALID
 }

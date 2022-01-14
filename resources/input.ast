@@ -11,7 +11,7 @@ bool x = true == true;
 
 
 
-string a = "     l
+String a = "     l
  l
  123 Hello  ";
 if(A == 5) then print(" More than 5 ");

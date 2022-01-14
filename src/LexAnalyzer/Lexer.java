@@ -1,9 +1,7 @@
 package LexAnalyzer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.CharacterAction;
 
 public class Lexer {
 
@@ -17,6 +15,7 @@ public class Lexer {
         Q5,         //Comment - Single-Line
         Q6,         //Character
         Q7,         //String
+
         Q8,         //Float Constant
         INVALID     //Unrecognized Token
     }
@@ -32,14 +31,15 @@ public class Lexer {
     }
 
     //Main Function
-    ArrayList<Token> scan(){
+    ArrayList<Token> execute(){
         ArrayList<Token> tokens = new ArrayList<>();
         String lexeme = "";
         char c;
+        String desc = "";
         for(int i = 0; i < lines.length();){
             c = lines.charAt(i);
             switch(curState){
-                case INITIAL:
+                case INITIAL:   //INITIAL
                     if(Character.isAlphabetic(c)){
                         curState = State.Q1;                        
                     }else if(Character.isDigit(c) ){
@@ -52,8 +52,21 @@ public class Lexer {
                     }
                     break;
 
-                case Q1:
-                    if(Character.isWhitespace(c)){
+                case Q1:        //Keywords, Datatype, Identifier, Boolean constant
+                    if(Character.isWhitespace(c)){                        
+                        if(data.keyword.containsKey(lexeme)){
+                            desc = data.keyword.get(lexeme);
+                            tokens.add(new Token(lexeme, TokenType.KEYWORD, desc));
+                        }else if(data.datatype.containsKey(lexeme)){
+                            desc = data.datatype.get(lexeme);
+                            tokens.add(new Token(lexeme, TokenType.DATATYPE, desc));
+                        }else if(data.bool.containsKey(lexeme)){
+                            desc = data.bool.get(lexeme);
+                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                        }else {
+                            desc = "Variable '" + lexeme + "'";
+                            tokens.add(new Token(lexeme, TokenType.INDENTIFIER, desc));
+                        }
                         print(lexeme);
                         lexeme = "";
                         curState = State.INITIAL;                        
@@ -63,13 +76,29 @@ public class Lexer {
                         curState = State.Q1;
                         i++;
                     }else{
-                        //TO-DO
-                        curState = State.INVALID;
+                        if(data.validSymbols.contains(String.valueOf(c))){
+                            if(data.keyword.containsKey(lexeme)){
+                                desc = data.keyword.get(lexeme);
+                                tokens.add(new Token(lexeme, TokenType.KEYWORD, desc));
+                            }else if(data.datatype.containsKey(lexeme)){
+                                desc = data.datatype.get(lexeme);
+                                tokens.add(new Token(lexeme, TokenType.DATATYPE, desc));
+                            }else if(data.bool.containsKey(lexeme)){
+                                desc = data.bool.get(lexeme);
+                                tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                            }else {
+                                desc = "Variable '" + lexeme + "'";
+                                tokens.add(new Token(lexeme, TokenType.INDENTIFIER, desc));
+                            }
+                            print(lexeme);
+                            lexeme = "";
+                            curState = State.INITIAL;
+                        }else
+                            curState = State.INVALID;
                     }
                     break;
 
-                case Q2:
-                    
+                case Q2:        //Integer Constant                 
                     if(Character.isAlphabetic(c)){
                         curState = State.INVALID;                        
                     }else if(Character.isDigit(c)){
@@ -77,84 +106,205 @@ public class Lexer {
                         curState = State.Q2;
                         i++;                        
                     }else if(Character.isWhitespace(c)){
+                        desc = "Integer Constant Value";
+                        tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
                         print(lexeme);
                         lexeme = "";
                         curState = State.INITIAL;                        
                         i++;
-                    }else {
-                        //TO-DO
+                    }else {                    
                         if(c == '.'){
                             lexeme += c;                        
-                            curState = State.Q8;
+                            curState = State.Q8; 
                             i++;
+                        }else if(data.validSymbols.contains(String.valueOf(c))){
+                            desc = "Integer Constant Value";
+                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                            print(lexeme);
+                            lexeme = "";
+                            curState = State.INITIAL;
+                        }else{
+                            desc = "Integer Constant Value";
+                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                            print(lexeme);
+                            lexeme = "";  
+                            curState = State.INVALID;
                         }
-                        curState = State.INVALID;
                     }
-
                     break;
 
-                case Q3:
+                case Q3:        //OPERATORS
                     String s = String.valueOf(c);
                     char s1 = lines.charAt(i+1);
                     char s2 = lines.charAt(i+2);
 
-                    
-                    if(data.validSymbols.contains(s)){
-                        lexeme += s;                        
-                        i++;
-                        
-                        if(Character.isWhitespace(s1)){
-                            print(lexeme);
-                            lexeme = "";
-                            curState = State.INITIAL;  
-                        }else if(Character.isAlphabetic(s1)){
-                            print(lexeme);
-                            lexeme = "";
-                            curState = State.Q1;  
-                        }else if(Character.isDigit(s1)){
-                            print(lexeme);
-                            lexeme = "";
-                            curState = State.Q2;
-                        }else{
+                    if( Character.isAlphabetic(c)   ||
+                        Character.isDigit(c)        ||
+                        Character.isWhitespace(c)
+                    ){  
+                        if(data.operator.containsKey(lexeme)){
+                            desc = data.operator.get(lexeme);
+                            tokens.add(new Token(lexeme, TokenType.OPERATOR, desc));
+                        }else if(data.delimeter.containsKey(lexeme)){
+                            desc = data.delimeter.get(lexeme);
+                            tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc));
+                        }                        
+                        print(lexeme);
+                        lexeme = "";
+                        curState = State.INITIAL; 
+                    }else {
+                        if(data.validSymbols.contains(s) && lexeme.isEmpty()){
                             if( (s+s1).equals("==") ||
                                 (s+s1).equals("<=") ||
                                 (s+s1).equals(">=") ||
                                 (s+s1).equals("<>")                      
-                            ){
-                                lexeme += s1;
-                                i++;
+                            ){  
+                                lexeme = s + s1;
+                                if(data.operator.containsKey(lexeme)){
+                                    desc = data.operator.get(lexeme);
+                                    tokens.add(new Token(lexeme, TokenType.OPERATOR, desc));
+                                }                                
+                                i += 2;
                                 print(lexeme);
                                 lexeme = "";
                                 curState = State.INITIAL;                         
-                            }else if((s+s1).equals("!*")){
-                                lexeme += s1;
+                            }else if(c == '(' || c == ')' || c == '{' || c == '}'){
+                                lexeme = s;
+                                if(data.delimeter.containsKey(lexeme)){
+                                    desc = data.delimeter.get(lexeme);
+                                    tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc));
+                                }
+                                i++;
                                 print(lexeme);
                                 lexeme = "";
                                 curState = State.INITIAL;  
+                            }else if(c == '"'){                                
+                                lexeme = s;
+                                if(data.delimeter.containsKey(lexeme)){
+                                    desc = data.delimeter.get(lexeme);
+                                    tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc));
+                                }
+                                i++;
+                                print(lexeme);
+                                lexeme = "";
+                                curState = State.Q7;  
+                            }else if(c == '\''){
+                                lexeme = s;
+                                if(data.delimeter.containsKey(lexeme)){
+                                    desc = data.delimeter.get(lexeme);
+                                    tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc));
+                                }
+                                i++;
+                                print(lexeme);
+                                lexeme = "";
+                                curState = State.Q6;  
                             }else if((s+s1+s2).equals("!**")){
-                                lexeme += s1 + s2; 
-                            }else {
-                                curState = State.INVALID;
-                            }                        
+                                lexeme += s + s1 + s2;
+                                if(data.comment.containsKey(lexeme)){
+                                    desc = data.comment.get(lexeme);
+                                    tokens.add(new Token(lexeme, TokenType.COMMENT, desc));
+                                }
+                                i += 3;
+                                print(lexeme);
+                                lexeme = "";
+                                curState = State.Q4; 
+                            }else if((s+s1).equals("!*")){                                
+                                lexeme += s + s1;
+                                if(data.comment.containsKey(lexeme)){
+                                    desc = data.comment.get(lexeme);
+                                    tokens.add(new Token(lexeme, TokenType.COMMENT, desc));
+                                }
+                                i += 2;
+                                print(lexeme);
+                                lexeme = "";
+                                curState = State.Q5;  
+                            }else{
+                                lexeme += c;                        
+                                curState = State.Q3;
+                                i++;
+                            }
+                        }else{
+                            curState = State.INVALID;
                         }
+                    }                     
+                    break;
 
+                case Q4:        //Comment - MultiLine                    
+                    if( c == '*' && lines.charAt(i+1) == '!'){
+                        desc = "Comment Contents";
+                        tokens.add(new Token(lexeme, TokenType.COMMENT, desc));
+                        print(lexeme);
+                        lexeme = c + "" + lines.charAt(i+1);
+                        if(data.comment.containsKey(lexeme)){
+                            desc = data.comment.get(lexeme);
+                            tokens.add(new Token(lexeme, TokenType.COMMENT, desc));
+                        }  
+                        print(lexeme);
+                        lexeme = "";
+                        curState = State.INITIAL;                        
+                        i += 2;
                     }else{
-                        curState = State.INVALID;
+                        lexeme += c;                        
+                        curState = State.Q4;
+                        i++;
                     }
-                    
 
-                    
                     break;
-                case Q4:
-                    
+
+                case Q5:        //Comment - SingleLine
+                    if( c == '\n'){
+                        desc = "Comment Contents";
+                        tokens.add(new Token(lexeme, TokenType.COMMENT, desc));
+                        print(lexeme);
+                        lexeme = "";
+                        curState = State.INITIAL;                        
+                        i++;
+                    }else{
+                        lexeme += c;                        
+                        curState = State.Q5;
+                        i++;
+                    }
                     break;
-                case Q5:
                     
+                case Q6:        //Character 
+                    if( c == '\''){
+                        desc = "Character Constant Value";
+                        tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                        print(lexeme);
+                        lexeme = String.valueOf(c);
+                        if(data.delimeter.containsKey(lexeme)){
+                            desc = data.delimeter.get(lexeme);
+                            tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc));
+                        }
+                        print(lexeme);
+                        lexeme = "";
+                        curState = State.INITIAL;                        
+                        i++;
+                    }else{
+                        lexeme += c;                        
+                        curState = State.Q6;
+                        i++;
+                    }
                     break;
-                case Q6:
-                    
-                    break;
-                case Q7:
+                case Q7:        //String 
+                    if( c == '"'){
+                        desc = "String Constant Value";
+                        tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                        print(lexeme);
+                        lexeme = String.valueOf(c);
+                        if(data.delimeter.containsKey(lexeme)){
+                            desc = data.delimeter.get(lexeme);
+                            tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc));
+                        }
+                        print(lexeme);
+                        lexeme = "";
+                        curState = State.INITIAL;                        
+                        i++;
+                    }else{
+                        lexeme += c;                        
+                        curState = State.Q7;
+                        i++;
+                    }
                     break;
 
                 case Q8:
@@ -165,32 +315,38 @@ public class Lexer {
                         curState = State.Q8;
                         i++;                        
                     }else if(Character.isWhitespace(c)){
+                        desc = "Float Constant Value";
+                        tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
                         print(lexeme);
                         lexeme = "";
                         curState = State.INITIAL;                        
                         i++;
                     }else {
-                        //TO-DO
-                        curState = State.INVALID;
+                        if(data.validSymbols.contains(String.valueOf(c))){
+                            desc = "Float Constant Value";
+                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                            print(lexeme);
+                            lexeme = "";
+                            curState = State.INITIAL;
+                        }else{
+                            desc = "Float Constant Value";
+                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                            print(lexeme);
+                            lexeme = "";  
+                            curState = State.INVALID;
+                        }
                     }
                     break;
 
                 case INVALID:
                     if(Character.isWhitespace(c)){
-                        print(lexeme);
+                        desc = "Unrecognized Token";
+                        tokens.add(new Token(lexeme, TokenType.INVALID, desc));
+                        print(lexeme + "Invalid");
                         lexeme = "";
                         curState = State.INITIAL;
                         i++;
-                    }else if(Character.isAlphabetic(c)){
-
-                    }else if(Character.isDigit(c)){
-                    }else if(!data.validSymbols.contains(String.valueOf(c)) ){
-                        lexeme += c;
-                        print(lexeme);
-                        lexeme = "";
-                        curState = State.INITIAL;
-                        i++;
-                    }else{
+                    }else{  
                         lexeme += c;
                         i++;
                     }
@@ -202,56 +358,10 @@ public class Lexer {
         return tokens;
     }
 
-    
 
-    // void match(String line, String l){
-    //     // Token token;
-    //     // String lexeme;
-    //     TokenType tokenType;
-    //     // String description;        
-        
-    //     //For (5/7)
-    //     System.out.print(l + "");
-
-    //     if( data.operator.containsKey(l)){ 
-    //         l = l.concat( String.valueOf(line.charAt(index + 1)));
-    //         if(data.operator.containsKey(l)){
-    //             index++;
-    //             tokenType = TokenType.OPERATOR;
-    //             System.out.println("\t\t M-Operator");
-    //         }else{
-    //             tokenType = TokenType.OPERATOR;
-    //             System.out.println("\t\t Operator");
-    //         }
-    //     }else if(data.delimeter.containsKey(l)){
-    //         tokenType = TokenType.DELIMETER_BRACKET;
-    //         System.out.println("\t\t Delimeter");
-    //     }else if(data.comment.containsKey(l)){
-    //         tokenType = TokenType.COMMENT;
-    //         System.out.println("\t\t Comment");
-    //     }else{
-            
-    //     }
-        
-
-        // token = new Token(lexeme, tokenType, description);
-    //     // return token;
-    // }
-
-    // Checks token match
-    boolean isContains(String l, String [] data ){
-        for(String x: data){
-            if(x.startsWith(l)){
-                System.out.println(" " + x);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
+    int i = 0;
     void print(String str){
-        System.out.println(str);
+        System.out.println( ++i + ": " + str);
     }
 
 }

@@ -1,0 +1,90 @@
+************			************				*****************
+*  TOKENS  *			*  LEXEME  *				*  DESCRIPTION  *
+************			************				*****************
+
+1:  int				DATATYPE				Integer Data Type
+2:  a				INDENTIFIER				Variable 'a'
+3:  =				OPERATOR				Assignment Operator
+4:  9				CONSTANT				Integer Constant Value
+5:  ,				DELIMETER_BRACKET				Separator
+6:  x				INDENTIFIER				Variable 'x'
+7:  ,				DELIMETER_BRACKET				Separator
+8:  y				INDENTIFIER				Variable 'y'
+9:  ;				DELIMETER_BRACKET				Terminator
+10:  String				DATATYPE				String Data Type
+11:  NAME				INDENTIFIER				Variable 'NAME'
+12:  =				OPERATOR				Assignment Operator
+13:  "				DELIMETER_BRACKET				Double Quotation
+14:  mark				CONSTANT				String Constant Value
+15:  "				DELIMETER_BRACKET				Double Quotation
+16:  ,				DELIMETER_BRACKET				Separator
+17:  age				INDENTIFIER				Variable 'age'
+18:  =				OPERATOR				Assignment Operator
+19:  "				DELIMETER_BRACKET				Double Quotation
+20:  21				CONSTANT				String Constant Value
+21:  "				DELIMETER_BRACKET				Double Quotation
+22:  ;				DELIMETER_BRACKET				Terminator
+23:  char				DATATYPE				Character Data Type
+24:  A				INDENTIFIER				Variable 'A'
+25:  =;				INVALID				Unrecognized Token
+26:  a				INDENTIFIER				Variable 'a'
+27:  =				OPERATOR				Assignment Operator
+28:  scan				KEYWORD				Input Statement
+29:  (				DELIMETER_BRACKET				Open Parenthesis
+30:  )				DELIMETER_BRACKET				Close Parenthesis
+31:  ;				DELIMETER_BRACKET				Terminator
+32:  bool				DATATYPE				Boolean Data Type
+33:  x				INDENTIFIER				Variable 'x'
+34:  =				OPERATOR				Assignment Operator
+35:  true				CONSTANT				Boolean Constant Value
+36:  ==				OPERATOR				Relational Operator
+37:  true				CONSTANT				Boolean Constant Value
+38:  ;				DELIMETER_BRACKET				Terminator
+39:  !**				COMMENT				Multi-Line Comment - Open
+40:  
+    This a multi line Comment
+            Hellow World
+				COMMENT				Comment Contents
+41:  *!				COMMENT				Multi-Line Comment - Close
+42:  String				DATATYPE				String Data Type
+43:  a				INDENTIFIER				Variable 'a'
+44:  =				OPERATOR				Assignment Operator
+45:  "				DELIMETER_BRACKET				Double Quotation
+46:       l
+ l
+ 123 Hello  				CONSTANT				String Constant Value
+47:  "				DELIMETER_BRACKET				Double Quotation
+48:  ;				DELIMETER_BRACKET				Terminator
+49:  if				KEYWORD				Conditional Statement
+50:  (				DELIMETER_BRACKET				Open Parenthesis
+51:  A				INDENTIFIER				Variable 'A'
+52:  ==				OPERATOR				Relational Operator
+53:  5				CONSTANT				Integer Constant Value
+54:  )				DELIMETER_BRACKET				Close Parenthesis
+55:  then				KEYWORD				Conditional Statement
+56:  print				KEYWORD				Output Statement
+57:  (				DELIMETER_BRACKET				Open Parenthesis
+58:  "				DELIMETER_BRACKET				Double Quotation
+59:   More than 5 				CONSTANT				String Constant Value
+60:  "				DELIMETER_BRACKET				Double Quotation
+61:  )				DELIMETER_BRACKET				Close Parenthesis
+62:  ;				DELIMETER_BRACKET				Terminator
+63:  !*				COMMENT				Single-Line Comment
+64:   This is a Comment				COMMENT				Comment Contents
+65:  for				KEYWORD				Looping/Repetition Statement
+66:  x				INDENTIFIER				Variable 'x'
+67:  in				KEYWORD				Looping/Repetition Statement
+68:  range				KEYWORD				Looping/Repetition Statement
+69:  (				DELIMETER_BRACKET				Open Parenthesis
+70:  a				INDENTIFIER				Variable 'a'
+71:  )				DELIMETER_BRACKET				Close Parenthesis
+72:  do				KEYWORD				Looping/Repetition Statement
+73:  {				DELIMETER_BRACKET				Group Statement - Open Brace
+74:  x				INDENTIFIER				Variable 'x'
+75:  =				OPERATOR				Assignment Operator
+76:  x				INDENTIFIER				Variable 'x'
+77:  +				OPERATOR				Arithmetic Operator
+78:  6				CONSTANT				Integer Constant Value
+79:  !*				COMMENT				Single-Line Comment
+80:   This is a Comment				COMMENT				Comment Contents
+81:  }				DELIMETER_BRACKET				Group Statement - Close Brace

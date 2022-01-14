@@ -13,7 +13,7 @@ public class Token {
     }
 
     String getInformation(){
-        return lexeme + "\t\t" + token + "\t\t" + description;
+        return lexeme + "\t\t\t\t" + token + "\t\t\t\t" + description;
     }
 
 }

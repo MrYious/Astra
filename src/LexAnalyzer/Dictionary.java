@@ -7,12 +7,14 @@ public class Dictionary {
     // String set1 = "+-*/^%|&;,(){}";    //14
     String validSymbols = "+-*/^%>=<!|&;,(){}\"'!";
 
+
     HashMap<String, String> operator = new HashMap<>();
     HashMap<String, String> delimeter = new HashMap<>();
     HashMap<String, String> comment = new HashMap<>();
     HashMap<String, String> datatype = new HashMap<>();
     HashMap<String, String> keyword = new HashMap<>();
-    
+    HashMap<String, String> bool = new HashMap<>();
+
     
     Dictionary(){
         operator.put("+", "Arithmetic Operator");
@@ -62,7 +64,8 @@ public class Dictionary {
         keyword.put("range",   "Looping/Repetition Statement");
         keyword.put("do",      "Looping/Repetition Statement");
 
-
+        bool.put("true",    "Boolean Constant Value");
+        bool.put("false",   "Boolean Constant Value");
     }
     
 }
