@@ -342,7 +342,7 @@ public class Lexer {
                     if(Character.isWhitespace(c)){
                         desc = "Unrecognized Token";
                         tokens.add(new Token(lexeme, TokenType.INVALID, desc));
-                        print(lexeme + "Invalid");
+                        print(lexeme);
                         lexeme = "";
                         curState = State.INITIAL;
                         i++;
@@ -361,7 +361,7 @@ public class Lexer {
 
     int i = 0;
     void print(String str){
-        System.out.println( ++i + ": " + str);
+        // System.out.println( ++i + ": " + str);
     }
 
 }

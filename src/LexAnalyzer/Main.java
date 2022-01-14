@@ -36,12 +36,12 @@ public class Main {
 
         File file;
 
-        // header();
+        header();
         file = getSourceFile();                         //Locate the source file
         String lines = scanFile(file);                  //Convert source file into a string
 
         Lexer lexer = new Lexer(lines);                 //Lexical Analyzer object
-        ArrayList<Token> tokens = lexer.execute();      //Convert into Tokens               
+        ArrayList<Token> tokens = lexer.execute();      //Convert string into tokens               
         writeSymbolTable(tokens);                       //Write tokens in the symbol table file
     }
   
@@ -131,6 +131,5 @@ public class Main {
         }
         return true;
     }
-
     
 }

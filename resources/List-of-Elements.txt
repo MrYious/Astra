@@ -32,7 +32,7 @@ Constant
     (A-z)*              String Constant Value
 
 Indentifier
-    ((azAZ)*(0-9)*_*)*    Variable 'x'
+    A-Z|a-z|0-9|_       Variable 'x'
 
 Data Type
     int                 Integer Data Type
@@ -51,4 +51,3 @@ Reserved / Keyword
     in                  Looping/Repetition Statement
     range               Looping/Repetition Statement
     do                  Looping/Repetition Statement
-

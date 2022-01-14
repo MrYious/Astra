@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class Dictionary {
 
-    // String set1 = "+-*/^%|&;,(){}";    //14
     String validSymbols = "+-*/^%>=<!|&;,(){}\"'!";
 
 
