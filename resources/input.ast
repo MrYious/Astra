@@ -4,7 +4,6 @@ char A = 'c';
 bool is_Even =false;
 float z = 5.66, w = z + 1.94;
 a = scan();
-
 bool x = true == true;
 
 !**     This a multi line Comment 1
@@ -14,8 +13,9 @@ bool x = true == true;
         This a multi line Comment >_<
 *!
 
-if(A == 5 && !false) then print(" More than 5 ");         !* This is a Comment    
+if(A == 5 && !false) then print(" More than 5 ");         !* This is Single Line Comment    
 for x in range(a) do
-{ x = x + 6    
+{ x = x + 6;
+  z : x ++ 1y; 
 }
 

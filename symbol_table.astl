@@ -1,0 +1,116 @@
+************			************			*****************
+*  TOKENS  *			*  LEXEME  *			*  DESCRIPTION  *
+************			************			*****************
+
+1: int	 	 	 	DATATYPE	 	 	 Integer Data Type
+2: a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
+3: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+4: 9	 	 	 	CONSTANT	 	 	 Integer Constant Value
+5: ,	 	 	 	DELIMETER_BRACKET	 	 	 Separator
+6: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+7: ,	 	 	 	DELIMETER_BRACKET	 	 	 Separator
+8: y	 	 	 	INDENTIFIER	 	 	 Variable 'y'
+9: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+10: String	 	 	 	DATATYPE	 	 	 String Data Type
+11: NAME	 	 	 	INDENTIFIER	 	 	 Variable 'NAME'
+12: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+13: "	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
+14: astra	 	 	 	CONSTANT	 	 	 String Constant Value
+15: "	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
+16: ,	 	 	 	DELIMETER_BRACKET	 	 	 Separator
+17: age	 	 	 	INDENTIFIER	 	 	 Variable 'age'
+18: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+19: "	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
+20: 21.0	 	 	 	CONSTANT	 	 	 String Constant Value
+21: "	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
+22: ,	 	 	 	DELIMETER_BRACKET	 	 	 Separator
+23: msg	 	 	 	INDENTIFIER	 	 	 Variable 'msg'
+24: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+25: "	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
+26:  Hello  -->  World	 	 	 	CONSTANT	 	 	 String Constant Value
+27: "	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
+28: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+29: char	 	 	 	DATATYPE	 	 	 Character Data Type
+30: A	 	 	 	INDENTIFIER	 	 	 Variable 'A'
+31: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+32: '	 	 	 	DELIMETER_BRACKET	 	 	 Single Quotation
+33: c	 	 	 	CONSTANT	 	 	 Character Constant Value
+34: '	 	 	 	DELIMETER_BRACKET	 	 	 Single Quotation
+35: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+36: bool	 	 	 	DATATYPE	 	 	 Boolean Data Type
+37: is_Even	 	 	 	INDENTIFIER	 	 	 Variable 'is_Even'
+38: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+39: false	 	 	 	CONSTANT	 	 	 Boolean Constant Value
+40: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+41: float	 	 	 	DATATYPE	 	 	 Float Data Type
+42: z	 	 	 	INDENTIFIER	 	 	 Variable 'z'
+43: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+44: 5.66	 	 	 	CONSTANT	 	 	 Float Constant Value
+45: ,	 	 	 	DELIMETER_BRACKET	 	 	 Separator
+46: w	 	 	 	INDENTIFIER	 	 	 Variable 'w'
+47: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+48: z	 	 	 	INDENTIFIER	 	 	 Variable 'z'
+49: +	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+50: 1.94	 	 	 	CONSTANT	 	 	 Float Constant Value
+51: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+52: a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
+53: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+54: scan	 	 	 	KEYWORD	 	 	 Input Statement
+55: (	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
+56: )	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
+57: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+58: bool	 	 	 	DATATYPE	 	 	 Boolean Data Type
+59: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+60: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+61: true	 	 	 	CONSTANT	 	 	 Boolean Constant Value
+62: ==	 	 	 	OPERATOR	 	 	 Relational Operator
+63: true	 	 	 	CONSTANT	 	 	 Boolean Constant Value
+64: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+65: !**	 	 	 	COMMENT	 	 	 Multi-Line Comment - Open
+66:      This a multi line Comment 1
+        This a multi line Comment 2.50
+
+        This a multi line Comment true
+        This a multi line Comment >_<
+	 	 	 	COMMENT	 	 	 Comment Contents
+67: *!	 	 	 	COMMENT	 	 	 Multi-Line Comment - Close
+68: if	 	 	 	KEYWORD	 	 	 Conditional Statement
+69: (	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
+70: A	 	 	 	INDENTIFIER	 	 	 Variable 'A'
+71: ==	 	 	 	OPERATOR	 	 	 Relational Operator
+72: 5	 	 	 	CONSTANT	 	 	 Integer Constant Value
+73: &&	 	 	 	INVALID	 	 	 Unrecognized Token
+74: !	 	 	 	OPERATOR	 	 	 Logical Operator
+75: false	 	 	 	CONSTANT	 	 	 Boolean Constant Value
+76: )	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
+77: then	 	 	 	KEYWORD	 	 	 Conditional Statement
+78: print	 	 	 	KEYWORD	 	 	 Output Statement
+79: (	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
+80: "	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
+81:  More than 5 	 	 	 	CONSTANT	 	 	 String Constant Value
+82: "	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
+83: )	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
+84: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+85: !*	 	 	 	COMMENT	 	 	 Single-Line Comment
+86:  This is Single Line Comment    	 	 	 	COMMENT	 	 	 Comment Contents
+87: for	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+88: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+89: in	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+90: range	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+91: (	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
+92: a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
+93: )	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
+94: do	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+95: {	 	 	 	DELIMETER_BRACKET	 	 	 Group Statement - Open Brace
+96: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+97: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+98: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+99: +	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+100: 6	 	 	 	CONSTANT	 	 	 Integer Constant Value
+101: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+102: z	 	 	 	INDENTIFIER	 	 	 Variable 'z'
+103: :	 	 	 	INVALID	 	 	 Unrecognized Token
+104: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+105: ++	 	 	 	INVALID	 	 	 Unrecognized Token
+106: 1y;	 	 	 	INVALID	 	 	 Unrecognized Token
+107: }	 	 	 	DELIMETER_BRACKET	 	 	 Group Statement - Close Brace

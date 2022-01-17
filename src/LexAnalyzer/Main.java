@@ -35,7 +35,7 @@ public class Main {
         // E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\input.ast
 
         File file;
-
+        
         header();
         file = getSourceFile();                         //Locate the source file
         String lines = scanFile(file);                  //Convert source file into a string
@@ -68,11 +68,12 @@ public class Main {
     }
     
     private static File getSourceFile(){
-        File file;
-        String file_path;
+        File file;      
+        String file_path;  
         Scanner scan = new Scanner(System.in);
         do{
-            System.out.println("Enter the path of the source file: ");            
+            System.out.println("Enter the path of the source file: ");
+                      
             file_path = scan.nextLine();
             file = new File(file_path);
             
@@ -99,13 +100,13 @@ public class Main {
     private static void writeSymbolTable(ArrayList<Token> tokens){
         try{    
             int i = 0;            
-            FileWriter fw = new FileWriter("E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\symbol_table.astl");    
+            FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\symbol_table.astl");
             
-            fw.write("************\t\t\t************\t\t\t\t*****************\n");
-            fw.write("*  TOKENS  *\t\t\t*  LEXEME  *\t\t\t\t*  DESCRIPTION  *\n");
-            fw.write("************\t\t\t************\t\t\t\t*****************\n\n");
+            fw.write("************\t\t\t************\t\t\t*****************\n");
+            fw.write("*  TOKENS  *\t\t\t*  LEXEME  *\t\t\t*  DESCRIPTION  *\n");
+            fw.write("************\t\t\t************\t\t\t*****************\n\n");
             for (Token token : tokens) {
-                fw.write(++i + ":  " + token.getInformation() + "\n");
+                fw.write(++i + ": " + token.getInformation() + "\n");
             }
 
             fw.close();    
