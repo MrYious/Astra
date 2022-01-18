@@ -13,7 +13,6 @@ public class Dictionary {
     HashMap<String, String> datatype = new HashMap<>();
     HashMap<String, String> keyword = new HashMap<>();
     HashMap<String, String> bool = new HashMap<>();
-
     
     Dictionary(){
         operator.put("+", "Arithmetic Operator");

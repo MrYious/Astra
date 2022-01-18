@@ -2,7 +2,6 @@ package LexAnalyzer;
 
 import java.util.ArrayList;
 
-
 public class Lexer {
 
     public enum State {
@@ -10,19 +9,15 @@ public class Lexer {
         Q1,         //Keywords, Datatype, Identifier, Boolean constant
         Q2,         //Integer Constant
         Q3,         //Operators
-
         Q4,         //Comment - MultiLine    
         Q5,         //Comment - Single-Line
         Q6,         //Character
         Q7,         //String
-
         Q8,         //Float Constant
         INVALID     //Unrecognized Token
     }
 
-
     private State curState = State.INITIAL;
-
     private Dictionary data = new Dictionary();
     private String lines;
     
