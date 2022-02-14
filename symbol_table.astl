@@ -67,50 +67,76 @@
 63: true	 	 	 	CONSTANT	 	 	 Boolean Constant Value
 64: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
 65: !**	 	 	 	COMMENT	 	 	 Multi-Line Comment - Open
-66:      This a multi line Comment 1
-        This a multi line Comment 2.50
+66:      This a Multi-line Comment 1
+        This a Multi-line Comment 2.50
 
-        This a multi line Comment true
-        This a multi line Comment >_<
+        This a Multi-line Comment true
+        This a Multi-line Comment >_<
 	 	 	 	COMMENT	 	 	 Comment Contents
 67: *!	 	 	 	COMMENT	 	 	 Multi-Line Comment - Close
-68: if	 	 	 	KEYWORD	 	 	 Conditional Statement
-69: (	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
-70: A	 	 	 	INDENTIFIER	 	 	 Variable 'A'
-71: ==	 	 	 	OPERATOR	 	 	 Relational Operator
-72: 5	 	 	 	CONSTANT	 	 	 Integer Constant Value
-73: &&	 	 	 	INVALID	 	 	 Unrecognized Token
-74: !	 	 	 	OPERATOR	 	 	 Logical Operator
-75: false	 	 	 	CONSTANT	 	 	 Boolean Constant Value
-76: )	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
-77: then	 	 	 	KEYWORD	 	 	 Conditional Statement
-78: print	 	 	 	KEYWORD	 	 	 Output Statement
-79: (	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
-80: "	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
-81:  More than 5 	 	 	 	CONSTANT	 	 	 String Constant Value
-82: "	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
-83: )	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
-84: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
-85: !*	 	 	 	COMMENT	 	 	 Single-Line Comment
-86:  This is Single Line Comment    	 	 	 	COMMENT	 	 	 Comment Contents
-87: for	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
-88: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
-89: in	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
-90: range	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
-91: (	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
-92: a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
-93: )	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
-94: do	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
-95: {	 	 	 	DELIMETER_BRACKET	 	 	 Group Statement - Open Brace
-96: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
-97: =	 	 	 	OPERATOR	 	 	 Assignment Operator
-98: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
-99: +	 	 	 	OPERATOR	 	 	 Arithmetic Operator
-100: 6	 	 	 	CONSTANT	 	 	 Integer Constant Value
-101: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
-102: z	 	 	 	INDENTIFIER	 	 	 Variable 'z'
-103: :	 	 	 	INVALID	 	 	 Unrecognized Token
-104: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
-105: ++	 	 	 	INVALID	 	 	 Unrecognized Token
-106: 1y;	 	 	 	INVALID	 	 	 Unrecognized Token
-107: }	 	 	 	DELIMETER_BRACKET	 	 	 Group Statement - Close Brace
+68: a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
+69: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+70: 1	 	 	 	CONSTANT	 	 	 Integer Constant Value
+71: +	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+72: 1	 	 	 	CONSTANT	 	 	 Integer Constant Value
+73: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+74: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+75: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+76: a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
+77: *	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+78: a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
+79: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+80: y	 	 	 	INDENTIFIER	 	 	 Variable 'y'
+81: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+82: a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
+83: -	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+84: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+85: /	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+86: 11	 	 	 	CONSTANT	 	 	 Integer Constant Value
+87: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+88: a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
+89: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+90: a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
+91: ^	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+92: 5	 	 	 	CONSTANT	 	 	 Integer Constant Value
+93: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+94: if	 	 	 	KEYWORD	 	 	 Conditional Statement
+95: (	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
+96: A	 	 	 	INDENTIFIER	 	 	 Variable 'A'
+97: ==	 	 	 	OPERATOR	 	 	 Relational Operator
+98: 5	 	 	 	CONSTANT	 	 	 Integer Constant Value
+99: &&	 	 	 	INVALID	 	 	 Unrecognized Token
+100: !	 	 	 	OPERATOR	 	 	 Logical Operator
+101: is_Even	 	 	 	INDENTIFIER	 	 	 Variable 'is_Even'
+102: )	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
+103: then	 	 	 	KEYWORD	 	 	 Conditional Statement
+104: print	 	 	 	KEYWORD	 	 	 Output Statement
+105: (	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
+106: "	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
+107:  More than 5 	 	 	 	CONSTANT	 	 	 String Constant Value
+108: "	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
+109: )	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
+110: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+111: !*	 	 	 	COMMENT	 	 	 Single-Line Comment
+112:  This is Single-Line Comment    	 	 	 	COMMENT	 	 	 Comment Contents
+113: for	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+114: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+115: in	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+116: range	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+117: (	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
+118: a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
+119: )	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
+120: do	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+121: {	 	 	 	DELIMETER_BRACKET	 	 	 Group Statement - Open Brace
+122: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+123: =	 	 	 	OPERATOR	 	 	 Assignment Operator
+124: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+125: +	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+126: 6	 	 	 	CONSTANT	 	 	 Integer Constant Value
+127: ;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+128: z	 	 	 	INDENTIFIER	 	 	 Variable 'z'
+129: :	 	 	 	INVALID	 	 	 Unrecognized Token
+130: x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+131: ++	 	 	 	INVALID	 	 	 Unrecognized Token
+132: 1y;	 	 	 	INVALID	 	 	 Unrecognized Token
+133: }	 	 	 	DELIMETER_BRACKET	 	 	 Group Statement - Close Brace

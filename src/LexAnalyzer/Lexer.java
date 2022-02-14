@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Lexer {
 
     public enum State {
-        INITIAL,    //Start
+        Q0,         //Initial
         Q1,         //Keywords, Datatype, Identifier, Boolean constant
         Q2,         //Integer Constant
         Q3,         //Operators
@@ -14,10 +14,10 @@ public class Lexer {
         Q6,         //Character
         Q7,         //String
         Q8,         //Float Constant
-        INVALID     //Unrecognized Token
+        Q9          //Invalid | Unrecognized Token
     }
 
-    private State curState = State.INITIAL;
+    private State curState = State.Q0;
     private Dictionary data = new Dictionary();
     private String lines;
     
@@ -34,13 +34,13 @@ public class Lexer {
         for(int i = 0; i < lines.length();){
             c = lines.charAt(i);
             switch(curState){
-                case INITIAL:   //INITIAL
+                case Q0:        //INITIAL
                     if(Character.isAlphabetic(c)){
                         curState = State.Q1;                        
                     }else if(Character.isDigit(c) ){
                         curState = State.Q2;
                     }else if(Character.isWhitespace(c)){
-                        curState = State.INITIAL;
+                        curState = State.Q0;
                         i++;
                     }else {
                         curState = State.Q3;
@@ -64,7 +64,7 @@ public class Lexer {
                         }
                         print(lexeme);
                         lexeme = "";
-                        curState = State.INITIAL;                        
+                        curState = State.Q0;                        
                         i++;
                     }else if(Character.isAlphabetic(c) || Character.isDigit(c) || c == '_' ){
                         lexeme += c;                        
@@ -87,15 +87,15 @@ public class Lexer {
                             }
                             print(lexeme);
                             lexeme = "";
-                            curState = State.INITIAL;
+                            curState = State.Q0;
                         }else
-                            curState = State.INVALID;
+                            curState = State.Q9;
                     }
                     break;
 
                 case Q2:        //Integer Constant                 
                     if(Character.isAlphabetic(c)){
-                        curState = State.INVALID;                        
+                        curState = State.Q9;                        
                     }else if(Character.isDigit(c)){
                         lexeme += c;                        
                         curState = State.Q2;
@@ -105,7 +105,7 @@ public class Lexer {
                         tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
                         print(lexeme);
                         lexeme = "";
-                        curState = State.INITIAL;                        
+                        curState = State.Q0;                        
                         i++;
                     }else {                    
                         if(c == '.'){
@@ -117,13 +117,13 @@ public class Lexer {
                             tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
                             print(lexeme);
                             lexeme = "";
-                            curState = State.INITIAL;
+                            curState = State.Q0;
                         }else{
                             desc = "Integer Constant Value";
                             tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
                             print(lexeme);
                             lexeme = "";  
-                            curState = State.INVALID;
+                            curState = State.Q9;
                         }
                     }
                     break;
@@ -146,7 +146,7 @@ public class Lexer {
                         }                        
                         print(lexeme);
                         lexeme = "";
-                        curState = State.INITIAL; 
+                        curState = State.Q0; 
                     }else {
                         if(data.validSymbols.contains(s) && lexeme.isEmpty()){
                             if( (s+s1).equals("==") ||
@@ -162,7 +162,7 @@ public class Lexer {
                                 i += 2;
                                 print(lexeme);
                                 lexeme = "";
-                                curState = State.INITIAL;                         
+                                curState = State.Q0;                         
                             }else if(c == '(' || c == ')' || c == '{' || c == '}'){
                                 lexeme = s;
                                 if(data.delimeter.containsKey(lexeme)){
@@ -172,7 +172,7 @@ public class Lexer {
                                 i++;
                                 print(lexeme);
                                 lexeme = "";
-                                curState = State.INITIAL;  
+                                curState = State.Q0;  
                             }else if(c == '"'){                                
                                 lexeme = s;
                                 if(data.delimeter.containsKey(lexeme)){
@@ -219,7 +219,7 @@ public class Lexer {
                                 i++;
                             }
                         }else{
-                            curState = State.INVALID;
+                            curState = State.Q9;
                         }
                     }                     
                     break;
@@ -236,7 +236,7 @@ public class Lexer {
                         }  
                         print(lexeme);
                         lexeme = "";
-                        curState = State.INITIAL;                        
+                        curState = State.Q0;                        
                         i += 2;
                     }else{
                         lexeme += c;                        
@@ -252,7 +252,7 @@ public class Lexer {
                         tokens.add(new Token(lexeme, TokenType.COMMENT, desc));
                         print(lexeme);
                         lexeme = "";
-                        curState = State.INITIAL;                        
+                        curState = State.Q0;                        
                         i++;
                     }else{
                         lexeme += c;                        
@@ -273,7 +273,7 @@ public class Lexer {
                         }
                         print(lexeme);
                         lexeme = "";
-                        curState = State.INITIAL;                        
+                        curState = State.Q0;                        
                         i++;
                     }else{
                         lexeme += c;                        
@@ -293,7 +293,7 @@ public class Lexer {
                         }
                         print(lexeme);
                         lexeme = "";
-                        curState = State.INITIAL;                        
+                        curState = State.Q0;                        
                         i++;
                     }else{
                         lexeme += c;                        
@@ -304,7 +304,7 @@ public class Lexer {
 
                 case Q8:
                     if(Character.isAlphabetic(c)){
-                        curState = State.INVALID;                        
+                        curState = State.Q9;                        
                     }else if(Character.isDigit(c)){
                         lexeme += c;                        
                         curState = State.Q8;
@@ -314,7 +314,7 @@ public class Lexer {
                         tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
                         print(lexeme);
                         lexeme = "";
-                        curState = State.INITIAL;                        
+                        curState = State.Q0;                        
                         i++;
                     }else {
                         if(data.validSymbols.contains(String.valueOf(c))){
@@ -322,24 +322,24 @@ public class Lexer {
                             tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
                             print(lexeme);
                             lexeme = "";
-                            curState = State.INITIAL;
+                            curState = State.Q0;
                         }else{
                             desc = "Float Constant Value";
                             tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
                             print(lexeme);
                             lexeme = "";  
-                            curState = State.INVALID;
+                            curState = State.Q9;
                         }
                     }
                     break;
 
-                case INVALID:
+                case Q9:
                     if(Character.isWhitespace(c)){
                         desc = "Unrecognized Token";
                         tokens.add(new Token(lexeme, TokenType.INVALID, desc));
                         print(lexeme);
                         lexeme = "";
-                        curState = State.INITIAL;
+                        curState = State.Q0;
                         i++;
                     }else{  
                         lexeme += c;

@@ -6,7 +6,6 @@ public class Dictionary {
 
     String validSymbols = "+-*/^%>=<!|&;,(){}\"'!";
 
-
     HashMap<String, String> operator = new HashMap<>();
     HashMap<String, String> delimeter = new HashMap<>();
     HashMap<String, String> comment = new HashMap<>();

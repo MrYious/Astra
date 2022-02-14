@@ -4,7 +4,7 @@ package LexAnalyzer;
     SUBJECT: Principles of Programming Languages;
     COURSE AND SECTION: BSCS 3-3
     
-    Programming Language:   AstraLang 
+    Programming Language:   Astra
 
     [/] Lexical Analyzer
     [] Syntax Analyzer
@@ -43,6 +43,7 @@ public class Main {
         Lexer lexer = new Lexer(lines);                 //Lexical Analyzer object
         ArrayList<Token> tokens = lexer.execute();      //Convert string into tokens               
         writeSymbolTable(tokens);                       //Write tokens in the symbol table file
+        
     }
   
     private static void header(){
