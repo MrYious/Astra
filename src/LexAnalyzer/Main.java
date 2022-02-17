@@ -33,7 +33,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException{
 
         // E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\input.ast
-
+        
         File file;
         
         header();
@@ -45,7 +45,7 @@ public class Main {
         writeSymbolTable(tokens);                       //Write tokens in the symbol table file
         
     }
-  
+
     private static void header(){
         System.out.println();
         System.out.println();
@@ -67,7 +67,7 @@ public class Main {
         System.out.println();
 
     }
-    
+
     private static File getSourceFile(){
         File file;      
         String file_path;  
@@ -133,5 +133,5 @@ public class Main {
         }
         return true;
     }
-    
+
 }

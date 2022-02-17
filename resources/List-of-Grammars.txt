@@ -1,0 +1,14 @@
+1. Input must be read one by one from the symbol table (one token at a time)
+2. A parser algorithm was implemented
+        Algorithm: Recursive Descent Parsing
+3. Transition Diagram
+4. Parsing table
+5. Input Statement /1
+6. Output Statement /3
+7. Assignment Statement /3
+8. Condition Statement /3
+9. Iterative Statement /2
+10. Declaration Statement 
+11. Error Recovery
+        Method used:
+12. Error Messages
