@@ -31,6 +31,7 @@ public class Lexer {
         String lexeme = "";
         char c;
         String desc = "";
+        
         for(int i = 0; i < lines.length();){
             c = lines.charAt(i);
             switch(curState){

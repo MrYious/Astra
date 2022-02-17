@@ -33,7 +33,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException{
 
         // E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\input.ast
-
+        
         File file;
         
         header();
@@ -45,7 +45,7 @@ public class Main {
         writeSymbolTable(tokens);                       //Write tokens in the symbol table file
         
     }
-  
+
     private static void header(){
         System.out.println();
         System.out.println();
@@ -67,7 +67,7 @@ public class Main {
         System.out.println();
 
     }
-    
+
     private static File getSourceFile(){
         File file;      
         String file_path;  
@@ -104,7 +104,7 @@ public class Main {
             FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\symbol_table.astl");
             
             fw.write("************\t\t\t************\t\t\t*****************\n");
-            fw.write("*  TOKENS  *\t\t\t*  LEXEME  *\t\t\t*  DESCRIPTION  *\n");
+            fw.write("*  LEXEME  *\t\t\t*  TOKENS  *\t\t\t*  DESCRIPTION  *\n");
             fw.write("************\t\t\t************\t\t\t*****************\n\n");
             for (Token token : tokens) {
                 fw.write(++i + ": " + token.getInformation() + "\n");
@@ -133,5 +133,5 @@ public class Main {
         }
         return true;
     }
-    
+
 }

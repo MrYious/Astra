@@ -24,9 +24,9 @@ x = a * a;
 y = a - x / 11;
 a = a ^ 5;
 
-if(a == 5 & !is_Even) then print(" More than 5 ");         !* This is Single-Line Comment    
+if(a == 5 & !is_Even) then print(" More than 5 ");   !* This is Single-Line Comment    
 
 for x in range(a) do { 
   x = x + 6;
   z : x ++ 1y; 
-}
+} 
