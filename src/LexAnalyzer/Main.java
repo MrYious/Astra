@@ -104,7 +104,7 @@ public class Main {
             FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\symbol_table.astl");
             
             fw.write("************\t\t\t************\t\t\t*****************\n");
-            fw.write("*  TOKENS  *\t\t\t*  LEXEME  *\t\t\t*  DESCRIPTION  *\n");
+            fw.write("*  LEXEME  *\t\t\t*  TOKENS  *\t\t\t*  DESCRIPTION  *\n");
             fw.write("************\t\t\t************\t\t\t*****************\n\n");
             for (Token token : tokens) {
                 fw.write(++i + ": " + token.getInformation() + "\n");
