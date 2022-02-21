@@ -7,7 +7,7 @@ package LexAnalyzer;
     Programming Language:   Astra
 
     [/] Lexical Analyzer
-    [] Syntax Analyzer
+    [O] Syntax Analyzer
     [] Semantic Analyzer
     
     Five (5) Members
@@ -33,17 +33,22 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException{
 
         // E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\input.ast
-
+        // E:\BSCS 3-3\PPL\PROJECT\AstraLang\AstraLang\resources\dictionary.astd
         File file;
         
         header();
-        file = getSourceFile();                         //Locate the source file
+        //file = getSourceFile();                         //Locate the source file
+        file = new File("E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\input.ast");
+        
         String lines = scanFile(file);                  //Convert source file into a string
 
         Lexer lexer = new Lexer(lines);                 //Lexical Analyzer object
         ArrayList<Token> tokens = lexer.execute();      //Convert string into tokens               
         writeSymbolTable(tokens);                       //Write tokens in the symbol table file
         
+        Parser parser = new Parser(tokens);
+        ArrayList<Statement> statements = parser.execute();
+        writeSyntaxTable(statements);
     }
   
     private static void header(){
@@ -79,7 +84,7 @@ public class Main {
             file = new File(file_path);
             
         }while( !isExist(file) || !isValid(file_path) );              
-        scan.close();
+
         return file;
     }
 
@@ -94,20 +99,20 @@ public class Main {
             line = fileScan.nextLine();
             lines += line + "\n";
         }
+
         fileScan.close();
         return lines;
     }
 
     private static void writeSymbolTable(ArrayList<Token> tokens){
-        try{    
-            int i = 0;            
+        try{        
             FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\symbol_table.astl");
             
-            fw.write("************\t\t\t************\t\t\t*****************\n");
-            fw.write("*  TOKENS  *\t\t\t*  LEXEME  *\t\t\t*  DESCRIPTION  *\n");
-            fw.write("************\t\t\t************\t\t\t*****************\n\n");
+            fw.write("********* \t************\t\t\t************\t\t\t*****************\n");
+            fw.write("* LINE# * \t*  TOKENS  *\t\t\t*  LEXEME  *\t\t\t*  DESCRIPTION  *\n");
+            fw.write("********* \t************\t\t\t************\t\t\t*****************\n\n");
             for (Token token : tokens) {
-                fw.write(++i + ": " + token.getInformation() + "\n");
+                fw.write(token.getInformation() + "\n");
             }
 
             fw.close();    
@@ -116,6 +121,25 @@ public class Main {
         }
 
         System.out.println("\nSymbol Table has been successfully generated!\n"); 
+    }
+
+    private static void writeSyntaxTable(ArrayList<Statement> statements){
+        try{         
+            FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\syntax_table.astl");
+            
+            fw.write("********\t\t\t\t**********\t\t\t\t\t************\t\t\t***********\n");
+            fw.write("* LINE *\t\t\t\t* SYNTAX *\t\t\t\t\t* VALIDITY *\t\t\t* MESSAGE *\n");
+            fw.write("********\t\t\t\t**********\t\t\t\t\t************\t\t\t***********\n\n");
+            for (Statement statement : statements) {
+                fw.write(statement.getInformation() + "\n");
+            }
+
+            fw.close();    
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        System.out.println("\nSyntax Table has been successfully generated!\n"); 
     }
 
     private static boolean isExist(File file){
@@ -133,5 +157,5 @@ public class Main {
         }
         return true;
     }
-    
+
 }

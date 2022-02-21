@@ -1,0 +1,36 @@
+A ::=   { A A' }
+A'  ::=   ''
+A'  ::=   A A'
+A  ::=   for i in range ( V ) do A 
+
+A  ::=   if ( X ) then A else A
+
+A  ::=   print ( X ) ;
+
+A  ::=   i = L ;
+A  ::=   d D ;
+
+D   ::=   i G c
+
+G   ::=   ''
+G   ::=   = L
+L  ::=   scan ( ) 
+L  ::=   X
+c    ::=   , D
+
+X   ::=   ( X )
+X   ::=   ! X 
+X   ::=   V X'
+X'  ::=   ''
+X'  ::=   o X
+
+V   ::=   i
+V   ::=   c
+
+
+
+i  ::=   a | b | c | d 
+c  ::=   true | false | literals
+d   ::=   char | int | float | bool | String
+
+o   ::=   + | - | / | * | ^ | == | > | >= | < | <= | <> | & | | 

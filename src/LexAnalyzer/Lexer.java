@@ -1,6 +1,7 @@
 package LexAnalyzer;
 
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
 
 public class Lexer {
 
@@ -18,21 +19,28 @@ public class Lexer {
     }
 
     private State curState = State.Q0;
-    private Dictionary data = new Dictionary();
+    private Dictionary data;
     private String lines;
+    private int line = 1;
     
-    Lexer(String lines){
+    Lexer(String lines) throws FileNotFoundException{
         this.lines = lines;
+        this.data = new Dictionary();
     }
 
     //Main Function
     ArrayList<Token> execute(){
         ArrayList<Token> tokens = new ArrayList<>();
         String lexeme = "";
-        char c;
+        char c = ' ';
         String desc = "";
+        int lastidX = 0;
         for(int i = 0; i < lines.length();){
-            c = lines.charAt(i);
+            c = lines.charAt(i);            
+            if(c == '\n' && i != lastidX){
+                lastidX = i;
+                line++;
+            }
             switch(curState){
                 case Q0:        //INITIAL
                     if(Character.isAlphabetic(c)){
@@ -51,16 +59,16 @@ public class Lexer {
                     if(Character.isWhitespace(c)){                        
                         if(data.keyword.containsKey(lexeme)){
                             desc = data.keyword.get(lexeme);
-                            tokens.add(new Token(lexeme, TokenType.KEYWORD, desc));
+                            tokens.add(new Token(lexeme, TokenType.KEYWORD, desc, line));
                         }else if(data.datatype.containsKey(lexeme)){
                             desc = data.datatype.get(lexeme);
-                            tokens.add(new Token(lexeme, TokenType.DATATYPE, desc));
+                            tokens.add(new Token(lexeme, TokenType.DATATYPE, desc, line));
                         }else if(data.bool.containsKey(lexeme)){
                             desc = data.bool.get(lexeme);
-                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc, line));
                         }else {
                             desc = "Variable '" + lexeme + "'";
-                            tokens.add(new Token(lexeme, TokenType.INDENTIFIER, desc));
+                            tokens.add(new Token(lexeme, TokenType.INDENTIFIER, desc, line));
                         }
                         print(lexeme);
                         lexeme = "";
@@ -74,16 +82,16 @@ public class Lexer {
                         if(data.validSymbols.contains(String.valueOf(c))){
                             if(data.keyword.containsKey(lexeme)){
                                 desc = data.keyword.get(lexeme);
-                                tokens.add(new Token(lexeme, TokenType.KEYWORD, desc));
+                                tokens.add(new Token(lexeme, TokenType.KEYWORD, desc, line));
                             }else if(data.datatype.containsKey(lexeme)){
                                 desc = data.datatype.get(lexeme);
-                                tokens.add(new Token(lexeme, TokenType.DATATYPE, desc));
+                                tokens.add(new Token(lexeme, TokenType.DATATYPE, desc, line));
                             }else if(data.bool.containsKey(lexeme)){
                                 desc = data.bool.get(lexeme);
-                                tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                                tokens.add(new Token(lexeme, TokenType.CONSTANT, desc, line));
                             }else {
                                 desc = "Variable '" + lexeme + "'";
-                                tokens.add(new Token(lexeme, TokenType.INDENTIFIER, desc));
+                                tokens.add(new Token(lexeme, TokenType.INDENTIFIER, desc, line));
                             }
                             print(lexeme);
                             lexeme = "";
@@ -102,7 +110,7 @@ public class Lexer {
                         i++;                        
                     }else if(Character.isWhitespace(c)){
                         desc = "Integer Constant Value";
-                        tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                        tokens.add(new Token(lexeme, TokenType.CONSTANT, desc, line));
                         print(lexeme);
                         lexeme = "";
                         curState = State.Q0;                        
@@ -114,13 +122,13 @@ public class Lexer {
                             i++;
                         }else if(data.validSymbols.contains(String.valueOf(c))){
                             desc = "Integer Constant Value";
-                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc, line));
                             print(lexeme);
                             lexeme = "";
                             curState = State.Q0;
                         }else{
                             desc = "Integer Constant Value";
-                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc, line));
                             print(lexeme);
                             lexeme = "";  
                             curState = State.Q9;
@@ -130,8 +138,13 @@ public class Lexer {
 
                 case Q3:        //OPERATORS
                     String s = String.valueOf(c);
-                    char s1 = lines.charAt(i+1);
-                    char s2 = lines.charAt(i+2);
+                    char s1 = ' ', s2 = ' ';
+                    if(i+1 < lines.length()){                        
+                        s1 = lines.charAt(i+1);
+                    }
+                    if(i+2 < lines.length()){                        
+                        s2 = lines.charAt(i+2);
+                    }
 
                     if( Character.isAlphabetic(c)   ||
                         Character.isDigit(c)        ||
@@ -139,10 +152,10 @@ public class Lexer {
                     ){  
                         if(data.operator.containsKey(lexeme)){
                             desc = data.operator.get(lexeme);
-                            tokens.add(new Token(lexeme, TokenType.OPERATOR, desc));
+                            tokens.add(new Token(lexeme, TokenType.OPERATOR, desc, line));
                         }else if(data.delimeter.containsKey(lexeme)){
                             desc = data.delimeter.get(lexeme);
-                            tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc));
+                            tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc, line));
                         }                        
                         print(lexeme);
                         lexeme = "";
@@ -157,7 +170,7 @@ public class Lexer {
                                 lexeme = s + s1;
                                 if(data.operator.containsKey(lexeme)){
                                     desc = data.operator.get(lexeme);
-                                    tokens.add(new Token(lexeme, TokenType.OPERATOR, desc));
+                                    tokens.add(new Token(lexeme, TokenType.OPERATOR, desc, line));
                                 }                                
                                 i += 2;
                                 print(lexeme);
@@ -167,7 +180,7 @@ public class Lexer {
                                 lexeme = s;
                                 if(data.delimeter.containsKey(lexeme)){
                                     desc = data.delimeter.get(lexeme);
-                                    tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc));
+                                    tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc, line));
                                 }
                                 i++;
                                 print(lexeme);
@@ -177,7 +190,7 @@ public class Lexer {
                                 lexeme = s;
                                 if(data.delimeter.containsKey(lexeme)){
                                     desc = data.delimeter.get(lexeme);
-                                    tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc));
+                                    tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc, line));
                                 }
                                 i++;
                                 print(lexeme);
@@ -187,7 +200,7 @@ public class Lexer {
                                 lexeme = s;
                                 if(data.delimeter.containsKey(lexeme)){
                                     desc = data.delimeter.get(lexeme);
-                                    tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc));
+                                    tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc, line));
                                 }
                                 i++;
                                 print(lexeme);
@@ -197,7 +210,7 @@ public class Lexer {
                                 lexeme += s + s1 + s2;
                                 if(data.comment.containsKey(lexeme)){
                                     desc = data.comment.get(lexeme);
-                                    tokens.add(new Token(lexeme, TokenType.COMMENT, desc));
+                                    tokens.add(new Token(lexeme, TokenType.COMMENT, desc, line));
                                 }
                                 i += 3;
                                 print(lexeme);
@@ -207,7 +220,7 @@ public class Lexer {
                                 lexeme += s + s1;
                                 if(data.comment.containsKey(lexeme)){
                                     desc = data.comment.get(lexeme);
-                                    tokens.add(new Token(lexeme, TokenType.COMMENT, desc));
+                                    tokens.add(new Token(lexeme, TokenType.COMMENT, desc, line));
                                 }
                                 i += 2;
                                 print(lexeme);
@@ -227,12 +240,12 @@ public class Lexer {
                 case Q4:        //Comment - MultiLine                    
                     if( c == '*' && lines.charAt(i+1) == '!'){
                         desc = "Comment Contents";
-                        tokens.add(new Token(lexeme, TokenType.COMMENT, desc));
+                        tokens.add(new Token(lexeme, TokenType.COMMENT, desc, line));
                         print(lexeme);
                         lexeme = c + "" + lines.charAt(i+1);
                         if(data.comment.containsKey(lexeme)){
                             desc = data.comment.get(lexeme);
-                            tokens.add(new Token(lexeme, TokenType.COMMENT, desc));
+                            tokens.add(new Token(lexeme, TokenType.COMMENT, desc, line));
                         }  
                         print(lexeme);
                         lexeme = "";
@@ -249,7 +262,7 @@ public class Lexer {
                 case Q5:        //Comment - SingleLine
                     if( c == '\n'){
                         desc = "Comment Contents";
-                        tokens.add(new Token(lexeme, TokenType.COMMENT, desc));
+                        tokens.add(new Token(lexeme, TokenType.COMMENT, desc, line));
                         print(lexeme);
                         lexeme = "";
                         curState = State.Q0;                        
@@ -264,12 +277,12 @@ public class Lexer {
                 case Q6:        //Character 
                     if( c == '\''){
                         desc = "Character Constant Value";
-                        tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                        tokens.add(new Token(lexeme, TokenType.CONSTANT, desc, line));
                         print(lexeme);
                         lexeme = String.valueOf(c);
                         if(data.delimeter.containsKey(lexeme)){
                             desc = data.delimeter.get(lexeme);
-                            tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc));
+                            tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc, line));
                         }
                         print(lexeme);
                         lexeme = "";
@@ -284,12 +297,12 @@ public class Lexer {
                 case Q7:        //String 
                     if( c == '"'){
                         desc = "String Constant Value";
-                        tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                        tokens.add(new Token(lexeme, TokenType.CONSTANT, desc, line));
                         print(lexeme);
                         lexeme = String.valueOf(c);
                         if(data.delimeter.containsKey(lexeme)){
                             desc = data.delimeter.get(lexeme);
-                            tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc));
+                            tokens.add(new Token(lexeme, TokenType.DELIMETER_BRACKET, desc, line));
                         }
                         print(lexeme);
                         lexeme = "";
@@ -311,7 +324,7 @@ public class Lexer {
                         i++;                        
                     }else if(Character.isWhitespace(c)){
                         desc = "Float Constant Value";
-                        tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                        tokens.add(new Token(lexeme, TokenType.CONSTANT, desc, line));
                         print(lexeme);
                         lexeme = "";
                         curState = State.Q0;                        
@@ -319,13 +332,13 @@ public class Lexer {
                     }else {
                         if(data.validSymbols.contains(String.valueOf(c))){
                             desc = "Float Constant Value";
-                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc, line));
                             print(lexeme);
                             lexeme = "";
                             curState = State.Q0;
                         }else{
                             desc = "Float Constant Value";
-                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc));
+                            tokens.add(new Token(lexeme, TokenType.CONSTANT, desc, line));
                             print(lexeme);
                             lexeme = "";  
                             curState = State.Q9;
@@ -336,7 +349,7 @@ public class Lexer {
                 case Q9:
                     if(Character.isWhitespace(c)){
                         desc = "Unrecognized Token";
-                        tokens.add(new Token(lexeme, TokenType.INVALID, desc));
+                        tokens.add(new Token(lexeme, TokenType.INVALID, desc, line));
                         print(lexeme);
                         lexeme = "";
                         curState = State.Q0;
@@ -352,7 +365,6 @@ public class Lexer {
 
         return tokens;
     }
-
 
     int i = 0;
     void print(String str){

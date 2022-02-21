@@ -1,0 +1,48 @@
++:Arithmetic Operator
+-:Arithmetic Operator
+/:Arithmetic Operator
+*:Arithmetic Operator
+^:Arithmetic Operator
+%:Arithmetic Operator
+==:Relational Operator
+<:Relational Operator
+>:Relational Operator
+<=:Relational Operator
+>=:Relational Operator
+<>:Relational Operator
+|:Logical Operator
+&:Logical Operator
+!:Logical Operator
+=:Assignment Operator
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;:Terminator
+":Double Quotation
+':Single Quotation
+,:Separator
+(:Open Parenthesis
+):Close Parenthesis
+{:Group Statement - Open Brace
+}:Group Statement - Close Brace
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+!*:Single-Line Comment
+!**:Multi-Line Comment - Open
+*!:Multi-Line Comment - Close
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+int:Integer Data Type
+char:Character Data Type
+bool:Boolean Data Type
+float:Float Data Type
+String:String Data Type
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+scan:Input Statement
+print:Output Statement
+if:Conditional Statement
+then:Conditional Statement
+else:Conditional Statement
+for:Looping/Repetition Statement
+in:Looping/Repetition Statement
+range:Looping/Repetition Statement
+do:Looping/Repetition Statement
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+true:Boolean Constant Value
+false:Boolean Constant Value

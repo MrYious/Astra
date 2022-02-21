@@ -1,32 +1,4 @@
-int a = 9, x, y;
+int a, w, c  ;
+int x0, y = 1;
 
-String NAME= "astra", age = "21.0", msg = " Hello  -->  World";
-
-char A = 'c';
-
-bool is_Even =false;
-
-float z = 5.66, w = z + 1.94;
-
-a = scan();
-
-bool x = true == true;
-
-!**     This a Multi-line Comment 1
-        This a Multi-line Comment 2.50
-
-        This a Multi-line Comment true
-        This a Multi-line Comment >_<
-*!
-
-a = 1 + 1;
-x = a * a;
-y = a - x / 11;
-a = a ^ 5;
-
-if(a == 5 & !is_Even) then print(" More than 5 ");         !* This is Single-Line Comment    
-
-for x in range(a) do { 
-  x = x + 6;
-  z : x ++ 1y; 
-}
+char c = 'c';

@@ -1,0 +1,97 @@
+1. Input must be read one by one from the symbol table (one token at a time)
+2. A parser algorithm was implemented
+        Algorithm: Recursive Descent Parsing
+3. Transition Diagram
+4. Parsing table
+
+
+5. Input Statement /1 
+6. Output Statement /3 
+7. Assignment Statement /3 
+8. Condition Statement /3 
+9. Iterative Statement /2 
+10. Declaration Statement 
+
+11. Error Recovery
+        Method used: 
+12. Error Messages
+        
+https://www.cs.princeton.edu/courses/archive/spring20/cos320/LL1/
+http://jsmachines.sourceforge.net/machines/ll1.html
+        
+--------------------------------------------------------------------------------------------------------------------------------
+
+//BLOCK
+<stmt>          ::=      { <stmt> <stmt'> }                             //GOOD
+<stmt'>         ::=      ''                                             //GOOD
+<stmt'>         ::=      <stmt> <stmt'>                                 //GOOD
+
+//FOR
+<stmt>          ::=      for <ident> in range ( <var> ) do <stmt>       //GOOD
+
+//IF
+<stmt>          ::=      if ( <exp> ) then <stmt> <else>                //GOOD
+<else>          ::=      ''                                             //GOOD
+<else>          ::=      else <stmt>                                    //GOOD
+
+//OUTPUT
+<stmt>          ::=      print ( <o_stmt>                               //GOOD
+<o_stmt>        ::=      <var> ) ;                                      //GOOD
+<o_stmt>        ::=      <exp> ) ;                                      //GOOD
+
+//DECLARE
+<stmt>          ::=      <ident> = <value> ;                            //GOOD
+<stmt>          ::=      <data_type> <dec_stmt> ;
+
+int [ x ( = 1) ( , [] ) ];
+
+
+<dec_stmt>      ::=      <ident> <ass_stmt> <x>
+
+<ass_stmt>      ::=      ''
+<ass_stmt>      ::=      = <value>                                              
+
+<x>             ::=      ''
+<x>             ::=      , <dec_stmt>
+
+<value>         ::=      scan ( )                                       //GOOD
+<value>         ::=      <exp>                                          //GOOD
+
+
+//EXP
+<exp>           ::=      ( <exp> )
+<exp>           ::=      ! <exp> 
+<exp>           ::=      <var> <exp'>
+<exp'>          ::=      ''
+<exp'>          ::=      <op> <exp>
+        
+-------------------------------------------------------------------             //GOOD
+
+//Literals and Variables
+<var>           ::=      <ident>                                
+<var>           ::=      <const>
+
+<ident>         ::=      a | b | c | d 
+<const>         ::=      true | false | literals
+<data_type>     ::=      char | int | float | bool | String
+
+<op>            ::=      + | - | / | * | ^ | 
+                         == | > | >= | < | <= | <> | & | | 
+
+<start>
+<stmt>
+<stmt'>
+<else>
+<o_stmt>
+<dec_stmt>
+<ass_stmt>
+<value>
+<x>
+
+<exp>
+<exp'>
+<var>
+<ident>
+<const>
+<data_type>
+<op>            

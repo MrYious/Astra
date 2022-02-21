@@ -1,0 +1,34 @@
+OLD BNF 
+
+<stmt>          =       { <stmt> } | <stmts> | <input_stmt> ; | <output_stmt> ; | <dec_stmt> ; | <ass_stmt> ; | <if_stmt> | <for_stmt>
+<stmts>         =       <stmt> <stmt>
+<input_stmt>    =       <data_type> <ident> = scan()  | <ident> = scan() 
+<output_stmt>   =       print( <var> ) | print( <exp> )
+
+<ass_stmt>      =       <ident> = <exp> 
+<dec_stmt>      =       <data_type> <ident_list> 
+
+<ident_list>    =       <ident> | <ident_list>, <ident_list> | <ident_list> = <exp> 
+<exp>           =       <var> | 
+                        !exp | 
+                        ( <exp> ) | 
+                        <exp> <ar_op> <exp> | 
+                        <exp> <rel_op> <exp> | 
+                        <exp> <log_op> <exp>
+
+<if_stmt>       =       if ( <exp> ) then <stmt> | 
+                        if ( <exp> ) then <stmt> else <stmt> 
+
+<for_stmt>      =       for <ident> in range( var ) do <stmt> | 
+                        for <ident> in range( var ) do <stmt> 
+
+<var>           =       <ident> | <const>
+
+<data_type>     =       char | int | float | bool | String
+
+<ar_op>         =       + | - | / | * | ^
+<rel_op>        =       == | > | >= | < | <= | <>
+<log_op>        =       & | | 
+
+<ident>         =       a | b | c | d 
+const           =       1 | 1.0 | '1' | "1" | true | false

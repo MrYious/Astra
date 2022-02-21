@@ -1,0 +1,7 @@
+********				**********					************			***********
+* LINE *				* SYNTAX *					* VALIDITY *			* MESSAGE *
+********				**********					************			***********
+
+L01 			int a , w , c ; 		Valid			
+L02 			int x0 , y = 1 ; 		Valid			
+L04 			char c = ' c ' ; 		Invalid			Unknown Syntax '''

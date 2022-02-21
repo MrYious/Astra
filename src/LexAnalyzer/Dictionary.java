@@ -1,8 +1,13 @@
 package LexAnalyzer;
 
+import java.io.File;
 import java.util.HashMap;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Dictionary {
+
+    //PATH E:\BSCS 3-3\PPL\PROJECT\AstraLang\AstraLang\resources\dictionary.astd
 
     String validSymbols = "+-*/^%>=<!|&;,(){}\"'!";
 
@@ -12,57 +17,92 @@ public class Dictionary {
     HashMap<String, String> datatype = new HashMap<>();
     HashMap<String, String> keyword = new HashMap<>();
     HashMap<String, String> bool = new HashMap<>();
-    
-    Dictionary(){
-        operator.put("+", "Arithmetic Operator");
-        operator.put("-", "Arithmetic Operator");
-        operator.put("/", "Arithmetic Operator");
-        operator.put("*", "Arithmetic Operator");
-        operator.put("^", "Arithmetic Operator");
-        operator.put("%", "Arithmetic Operator");
-        operator.put("==", "Relational Operator");
-        operator.put("<",  "Relational Operator");
-        operator.put(">",  "Relational Operator");
-        operator.put("<=", "Relational Operator");
-        operator.put(">=", "Relational Operator");
-        operator.put("<>", "Relational Operator");
-        operator.put("|",  "Logical Operator");
-        operator.put("&",  "Logical Operator");
-        operator.put("!",  "Logical Operator");
-        operator.put("=",  "Assignment Operator");
+    Scanner scan;
 
-        delimeter.put(";",     "Terminator");
-        delimeter.put("\"",    "Double Quotation");
-        delimeter.put("'",     "Single Quotation");
-        delimeter.put(",",     "Separator");
-        delimeter.put("(",     "Open Parenthesis");
-        delimeter.put(")",     "Close Parenthesis");
-        delimeter.put("{",     "Group Statement - Open Brace");
-        delimeter.put("}",     "Group Statement - Close Brace");
+    Dictionary() throws FileNotFoundException{
+        File file;      
+        String file_path;        
+        // Scanner scan = new Scanner(System.in);
+        // do{            
+        //     System.out.println("Enter the path of the dictionary file: ");
+            
+        //     file_path = scan.nextLine();
+        //     file = new File(file_path);            
+        // }while( !isExist(file) || !isValid(file_path) );              
+        // scan.close();
+        file = new File("E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\dictionary.astd");
+        String data = scanFile(file);
 
-        comment.put("!*",      "Single-Line Comment");
-        comment.put("!**",     "Multi-Line Comment - Open");
-        comment.put("*!",      "Multi-Line Comment - Close");
-        comment.put("...",     "Comment Message");
-
-        datatype.put("int",    "Integer Data Type");
-        datatype.put("char",   "Character Data Type");
-        datatype.put("bool",   "Boolean Data Type");
-        datatype.put("float",  "Float Data Type");
-        datatype.put("String", "String Data Type");
-
-        keyword.put("scan",    "Input Statement");
-        keyword.put("print",   "Output Statement");
-        keyword.put("if",      "Conditional Statement");
-        keyword.put("then",    "Conditional Statement");
-        keyword.put("else",    "Conditional Statement");
-        keyword.put("for",     "Looping/Repetition Statement");
-        keyword.put("in",      "Looping/Repetition Statement");
-        keyword.put("range",   "Looping/Repetition Statement");
-        keyword.put("do",      "Looping/Repetition Statement");
-
-        bool.put("true",    "Boolean Constant Value");
-        bool.put("false",   "Boolean Constant Value");
+        reader(data);
     }
-    
-}
+
+    private void reader(String data){
+        String lines[] = data.split("\\r?\\n");
+        String token[];
+        for(int i = 0; i < lines.length; i++){
+            if(i < 16){
+                if(lines[i].charAt(0) != ':'){
+                    token = lines[i].split(":");
+                    operator.put(token[0], token[1]);
+                }
+            }else if(i < 25){
+                if(lines[i].charAt(0) != ':'){
+                    token = lines[i].split(":");
+                    delimeter.put(token[0], token[1]);
+                }
+            }else if(i < 29){
+                if(lines[i].charAt(0) != ':'){
+                    token = lines[i].split(":");
+                    comment.put(token[0], token[1]);
+                }
+            }else if(i < 35){
+                if(lines[i].charAt(0) != ':'){
+                    token = lines[i].split(":");
+                    datatype.put(token[0], token[1]);
+                }
+            }else if(i < 45){
+                if(lines[i].charAt(0) != ':'){
+                    token = lines[i].split(":");
+                    keyword.put(token[0], token[1]);
+                }
+            }else if(i < 48){
+                if(lines[i].charAt(0) != ':'){
+                    token = lines[i].split(":");
+                    bool.put(token[0], token[1]);
+                }
+            }
+        }
+    }
+
+    private static String scanFile(File file) throws FileNotFoundException{
+        String lines = "";
+        System.out.println();
+                
+        Scanner fileScan = new Scanner(file);
+        String line;
+        
+        while (fileScan.hasNextLine()) {                
+            line = fileScan.nextLine();
+            lines += line + "\n";
+        }
+        fileScan.close();
+        return lines;
+    }
+
+    private static boolean isExist(File file){
+        if(!file.exists()){
+            System.out.println("\nERROR: Cannot Locate File!\nPlease try again.\n");
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isValid(String file_path){
+        if(!file_path.endsWith(".astd")){                
+            System.out.println("\nERROR: Cannot recognize file format.\nMust end with .astd\n");
+            return false;
+        }
+        return true;
+    }
+
+}   
