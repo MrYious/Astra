@@ -50,7 +50,7 @@ public class Main {
         ArrayList<Statement> statements = parser.execute();
         writeSyntaxTable(statements);
     }
-  
+
     private static void header(){
         System.out.println();
         System.out.println();
@@ -72,7 +72,7 @@ public class Main {
         System.out.println();
 
     }
-    
+
     private static File getSourceFile(){
         File file;      
         String file_path;  
