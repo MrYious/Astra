@@ -22,15 +22,15 @@ public class Dictionary {
     Dictionary() throws FileNotFoundException{
         File file;      
         String file_path;        
-        // Scanner scan = new Scanner(System.in);
-        // do{            
-        //     System.out.println("Enter the path of the dictionary file: ");
+        Scanner scan = new Scanner(System.in);
+        do{            
+            System.out.println("Enter the path of the dictionary file: ");
             
-        //     file_path = scan.nextLine();
-        //     file = new File(file_path);            
-        // }while( !isExist(file) || !isValid(file_path) );              
-        // scan.close();
-        file = new File("E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\dictionary.astd");
+            file_path = scan.nextLine();
+            file = new File(file_path);            
+        }while( !isExist(file) || !isValid(file_path) );              
+        scan.close();
+        //file = new File("E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\dictionary.astd");
         String data = scanFile(file);
 
         reader(data);

@@ -3,22 +3,27 @@
         Algorithm: Recursive Descent Parsing
 3. Transition Diagram
 4. Parsing table
-
-
 5. Input Statement /1 
 6. Output Statement /3 
 7. Assignment Statement /3 
 8. Condition Statement /3 
 9. Iterative Statement /2 
 10. Declaration Statement 
-
 11. Error Recovery
         Method used: 
 12. Error Messages
-        
+
+#Reference for parser algorithm
 https://www.cs.princeton.edu/courses/archive/spring20/cos320/LL1/
 http://jsmachines.sourceforge.net/machines/ll1.html
-        
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+Error Messages: 
+ch      Expected "<og_val>"             for != symbols
+tt      Expected identifier             for != ident / var
+str     Unknown Syntax "<inc_val>"      for != keywords
+        Invalid Syntax / Token          
 --------------------------------------------------------------------------------------------------------------------------------
 
 //BLOCK
@@ -41,29 +46,26 @@ http://jsmachines.sourceforge.net/machines/ll1.html
 
 //DECLARE
 <stmt>          ::=      <ident> = <value> ;                            //GOOD
-<stmt>          ::=      <data_type> <dec_stmt> ;
+<stmt>          ::=      <data_type> <dec_stmt> ;                       //GOOD
 
-int [ x ( = 1) ( , [] ) ];
+<dec_stmt>      ::=      <ident> <ass_stmt> <x>                         //GOOD
 
+<ass_stmt>      ::=      ''                                             //GOOD
+<ass_stmt>      ::=      = <value>                                      //GOOD         
 
-<dec_stmt>      ::=      <ident> <ass_stmt> <x>
-
-<ass_stmt>      ::=      ''
-<ass_stmt>      ::=      = <value>                                              
-
-<x>             ::=      ''
-<x>             ::=      , <dec_stmt>
+<x>             ::=      ''                                             //GOOD
+<x>             ::=      , <dec_stmt>                                   //GOOD
 
 <value>         ::=      scan ( )                                       //GOOD
 <value>         ::=      <exp>                                          //GOOD
 
 
 //EXP
-<exp>           ::=      ( <exp> )
-<exp>           ::=      ! <exp> 
-<exp>           ::=      <var> <exp'>
-<exp'>          ::=      ''
-<exp'>          ::=      <op> <exp>
+<exp>           ::=      ( <exp> )                                      //GOOD
+<exp>           ::=      ! <exp>                                        //GOOD
+<exp>           ::=      <var> <exp'>                                   //GOOD
+<exp'>          ::=      ''                                             //GOOD
+<exp'>          ::=      <op> <exp>                                     //GOOD
         
 -------------------------------------------------------------------             //GOOD
 

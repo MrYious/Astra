@@ -33,12 +33,12 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException{
 
         // E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\input.ast
-        // E:\BSCS 3-3\PPL\PROJECT\AstraLang\AstraLang\resources\dictionary.astd
+        // E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\dictionary.astd
         File file;
         
         header();
-        //file = getSourceFile();                         //Locate the source file
-        file = new File("E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\input.ast");
+        file = getSourceFile();                         //Locate the source file
+        //file = new File("E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\input.ast");
         
         String lines = scanFile(file);                  //Convert source file into a string
 
@@ -66,6 +66,7 @@ public class Main {
         System.out.println("*  This is a compiler for the Astra programming language   *");
         System.out.println("*                                                          *");
         System.out.println("*                  Phase 1: Lexical Analyzer               *");
+        System.out.println("*                  Phase 2: Syntax Analyzer                *");
         System.out.println("*                                                          *");
         System.out.println("************************************************************");
         System.out.println();
@@ -120,16 +121,16 @@ public class Main {
             System.out.println(e);
         }
 
-        System.out.println("\nSymbol Table has been successfully generated!\n"); 
+        System.out.println("\nSymbol Table has been successfully generated!"); 
     }
 
     private static void writeSyntaxTable(ArrayList<Statement> statements){
         try{         
             FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\syntax_table.astl");
             
-            fw.write("********\t\t\t\t**********\t\t\t\t\t************\t\t\t***********\n");
-            fw.write("* LINE *\t\t\t\t* SYNTAX *\t\t\t\t\t* VALIDITY *\t\t\t* MESSAGE *\n");
-            fw.write("********\t\t\t\t**********\t\t\t\t\t************\t\t\t***********\n\n");
+            fw.write("********\t\t**********\t\t\t\t\t************\t\t\t***********\n");
+            fw.write("* LINE *\t\t* SYNTAX *\t\t\t\t\t* VALIDITY *\t\t\t* MESSAGE *\n");
+            fw.write("********\t\t**********\t\t\t\t\t************\t\t\t***********\n\n");
             for (Statement statement : statements) {
                 fw.write(statement.getInformation() + "\n");
             }
@@ -139,7 +140,7 @@ public class Main {
             System.out.println(e);
         }
 
-        System.out.println("\nSyntax Table has been successfully generated!\n"); 
+        System.out.println("Syntax Table has been successfully generated!\n"); 
     }
 
     private static boolean isExist(File file){
