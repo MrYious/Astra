@@ -25,6 +25,7 @@ tt      Expected identifier             for != ident / var
 str     Unknown Syntax "<inc_val>"      for != keywords
         Invalid Syntax / Token          
 --------------------------------------------------------------------------------------------------------------------------------
+Left-factored && Removed left recursion
 
 //BLOCK
 <stmt>          ::=      { <stmt> <stmt'> }                             //GOOD
@@ -80,6 +81,8 @@ str     Unknown Syntax "<inc_val>"      for != keywords
 <op>            ::=      + | - | / | * | ^ | 
                          == | > | >= | < | <= | <> | & | | 
 
+--------------------------------------------------------------------
+
 <start>
 <stmt>
 <stmt'>
@@ -92,6 +95,7 @@ str     Unknown Syntax "<inc_val>"      for != keywords
 
 <exp>
 <exp'>
+
 <var>
 <ident>
 <const>

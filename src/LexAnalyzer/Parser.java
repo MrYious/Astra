@@ -15,11 +15,7 @@ public class Parser {
 
     private boolean end = false;
     private boolean hold = false;
-    private boolean ended = false;    
-    private boolean fix = false;
-    private boolean con = true;
-
-    //Try input for errors
+    private boolean ended = false;
 
     Parser(ArrayList<Token> tokens){
         this.s_tokens = new Stack<>();
@@ -32,150 +28,134 @@ public class Parser {
     
     public ArrayList<Statement> execute() {      
         current = s_tokens.pop();
-        next = s_tokens.peek();
-        while(!s_tokens.empty()){            
-            System.out.println("Current: " + current.lexeme + " | " + current.token);
-            System.out.println("Statement: " + statement.isValid);
-            stmt();
-        }
+        next = s_tokens.peek();        
+        stmt();
 
         return statements;
     }
 
     //Productions
-
-    void stmt(){
+    private void stmt(){
         Token token = current;
-        if(con){
-            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("{")){
+        if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("{")){
+            consume();
+            hold = true;
+            stmt();
+            stmt_p();
+            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("}")){                                    
+                hold = false;
                 consume();
-                hold = true;
-                stmt();
-                stmt_p();
-                if(con){
-                    if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("}")){
-                        consume();
-                        endStatement();
-                    }else{
-                        errorRecover('}');
-                    }                    
-                    hold = false;
-                }else{
-                    con = true;
-                }                
-            }else if(current.token == TokenType.KEYWORD && current.lexeme.equals("for")){
+                endStatement();
+            }else{
+                hold = false;
+                errorRecover('}');
+            }                 
+        }else if(current.token == TokenType.KEYWORD && current.lexeme.equals("for")){
+            consume();
+            if(isIdentifier(current)){
                 consume();
-                if(isIdentifier(current)){
+                if(current.token == TokenType.KEYWORD && current.lexeme.equals("in")){
                     consume();
-                    if(current.token == TokenType.KEYWORD && current.lexeme.equals("in")){
+                    if(current.token == TokenType.KEYWORD && current.lexeme.equals("range")){
                         consume();
-                        if(current.token == TokenType.KEYWORD && current.lexeme.equals("range")){
+                        if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
                             consume();
-                            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
+                            if(isVar(current)){
                                 consume();
-                                if(isVar(current)){
+                                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")){
                                     consume();
-                                    if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")){
+                                    if(current.token == TokenType.KEYWORD && current.lexeme.equals("do")){
                                         consume();
-                                        if(current.token == TokenType.KEYWORD && current.lexeme.equals("do")){
-                                            consume();
-                                            stmt();
-                                        }else{                                        
-                                            errorRecover(current.lexeme);
-                                        }
-                                    }else{
-                                        errorRecover(')');
+                                        stmt();
+                                    }else{                                        
+                                        errorRecover(current.lexeme);
                                     }
-                                }else{                                
-                                    errorRecover(TokenType.INDENTIFIER);
+                                }else{
+                                    errorRecover(')');
                                 }
-                            }else{
-                                errorRecover('(');
+                            }else{                                
+                                errorRecover(TokenType.INDENTIFIER);
                             }
-                        }else{                        
-                            errorRecover(current.lexeme);
+                        }else{
+                            errorRecover('(');
                         }
+                    }else{                        
+                        errorRecover(current.lexeme);
+                    }
+                }else{
+                    errorRecover(current.lexeme);
+                }
+            }else{
+                errorRecover(TokenType.INDENTIFIER);
+            }
+        }else if(current.token == TokenType.KEYWORD && current.lexeme.equals("if")){
+            consume();
+            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
+                consume();
+                exp(current);
+                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")){
+                    consume();
+                    if(current.token == TokenType.KEYWORD && current.lexeme.equals("then")){
+                        consume();
+                        hold = true;
+                        stmt();
+                        else_s(current);                        
                     }else{
                         errorRecover(current.lexeme);
                     }
                 }else{
-                    errorRecover(TokenType.INDENTIFIER);
+                    errorRecover(')');
                 }
-            }else if(current.token == TokenType.KEYWORD && current.lexeme.equals("if")){
-                consume();
-                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
-                    consume();
-                    exp(current);
-                    if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")") && con){
-                        consume();
-                        if(current.token == TokenType.KEYWORD && current.lexeme.equals("then")){
-                            consume();
-                            hold = true;
-                            stmt();
-                            else_s(current);                        
-                        }else{
-                            errorRecover(current.lexeme);
-                        }
-                    }else{
-                        errorRecover(')');
-                        con = true;
-                    }
-                }else{
-                    errorRecover('(');
-                }
-            }else if(current.token == TokenType.KEYWORD && current.lexeme.equals("print")){
-                consume();
-                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
-                    consume();
-                    isO_stmt(current);
-                }else{
-                    errorRecover('(');
-                }
-            }else if(isDatatype(current)){
-                consume();
-                dec_stmt(current);
-                if(!ended && con){                
-                    System.out.println("Entered 1 ");
-                    if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";") ){
-                        consume();
-                        endStatement();
-                    }else{
-                        errorRecover(';');
-                    }
-                }else{                
-                    System.out.println("Entered 2");
-                    end = false;
-                    con = true;
-                }
-                
-            }else if(isIdentifier(current)){
-                consume(); 
-                if(current.token == TokenType.OPERATOR && current.lexeme.equals("=")){
-                    consume();
-                    value(current);
-                    if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";")){
-                        consume();
-                        endStatement();
-                    }else{
-                        errorRecover(';');
-                    }
-                }else if (isIdentifier(current) && (next.token == TokenType.OPERATOR && next.lexeme.equals("="))){
-                    errorRecover(token.lexeme);
-                }else if ((current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("("))){
-                    errorRecover(token.lexeme);
-                }else{
-                    System.out.println(current.lexeme + " " + current.token);
-                    System.out.println(next.lexeme + " " + next.token);
-                    errorRecover('=');
-                }
-            }else {
-                errorRecover();
+            }else{
+                errorRecover('(');
             }
+        }else if(current.token == TokenType.KEYWORD && current.lexeme.equals("print")){
+            consume();
+            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
+                consume();
+                isO_stmt(current);
+            }else{
+                errorRecover('(');
+            }
+        }else if(isDatatype(current)){
+            consume();
+            dec_stmt(current);
+            if(!ended){
+                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";") ){
+                    consume();
+                    endStatement();
+                }else{
+                     errorTerminator();
+                }
+            }else{                
+                end = false;
+            }
+            
+        }else if(isIdentifier(current)){
+            consume(); 
+            if(current.token == TokenType.OPERATOR && current.lexeme.equals("=")){
+                consume();
+                value(current);
+                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";")){
+                    consume();
+                    endStatement();
+                }else{
+                     errorTerminator();
+                }
+            }else if (isIdentifier(current) && (next.token == TokenType.OPERATOR && next.lexeme.equals("="))){
+                errorRecover(token.lexeme);
+            }else if ((current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("("))){
+                errorRecover(token.lexeme);
+            }else{
+                errorRecover('=');
+            }
+        }else {
+            errorRecover();
         }
     }
 
     private void stmt_p() {
-        if(!(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("}")) && !s_tokens.empty() && con){
+        if(!(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("}")) && !s_tokens.empty()){
             stmt();
             stmt_p();
         }
@@ -193,7 +173,6 @@ public class Parser {
         }
     }
 
-    //in EXP
     private void isO_stmt(Token token) {
         if(isVar(token) && (next.token == TokenType.DELIMETER_BRACKET && next.lexeme.equals(")"))){
             consume();
@@ -202,65 +181,55 @@ public class Parser {
                 consume();
                 endStatement();
             }else{
-                errorRecover(';');
+                 errorTerminator();
             }
+        }else if((current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")) && (next.token == TokenType.DELIMETER_BRACKET && next.lexeme.equals(";"))){
+            consume();
+            consume();            
+            endStatement();
         }else{
             hold = true;
             exp(token);
             hold = false;
-            if(con){
-                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")){
+            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")){
+                consume();
+                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";")){
                     consume();
-                    if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";")){
-                        consume();
-                        endStatement();
-                    }else{            
-                        errorRecover(';');
-                    }
-                }else{
-                    errorRecover(')');
+                    endStatement();
+                }else{            
+                     errorTerminator();
                 }
-            }else{                
-                con = true; 
-            }           
+            }else{
+                errorRecover(')');
+            }   
         }
     }
 
-    void dec_stmt(Token token){
-        if(con){
-            if(isIdentifier(token)){            
-                consume();
-                ass_stmt(current);
-                if(con){                
-                    x(current);      
-                }  
-            }else{
-                errorRecover(TokenType.INDENTIFIER);
-                con = false;
-            }
+    private void dec_stmt(Token token){
+        if(isIdentifier(token)){            
+            consume();
+            ass_stmt(current);
+            x(current);   
+        }else{
+            errorRecover(TokenType.INDENTIFIER);
         }
     }
 
     private void x(Token token) {
-        if(con){
-            if(token.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals(",")){
-                if(current.token == TokenType.DELIMETER_BRACKET && next.lexeme.equals(";")){
-                    errorRecover(TokenType.INDENTIFIER);
-                }else{
-                    consume();
-                    dec_stmt(current);
-                }
-            }else if (!(token.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals(";"))){
-                ended = true;
-                errorRecover(';');
+        if(token.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals(",")){
+            if(current.token == TokenType.DELIMETER_BRACKET && next.lexeme.equals(";")){
+                errorRecover(TokenType.INDENTIFIER);
+            }else{
+                consume();
+                dec_stmt(current);
             }
-        }else {
-            con = true;
-        }
-        
+        }else if (!(token.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals(";"))){
+            ended = true;
+             errorTerminator();
+        }        
     }
 
-    void ass_stmt(Token token){
+    private void ass_stmt(Token token){
         if(token.token == TokenType.OPERATOR && token.lexeme.equals("=")){
             consume();
             value(current);
@@ -272,7 +241,7 @@ public class Parser {
         }
     }
 
-    void value(Token token){
+    private void value(Token token){
         if(token.token == TokenType.KEYWORD && token.lexeme.equals("scan")){
             consume();
             if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
@@ -290,9 +259,9 @@ public class Parser {
         }
     }
 
-    void exp(Token token){
+    private void exp(Token token){
         if(isVar(token)){
-            consume();
+            consume();            
             exp_p(current);
         }else if(current.token == TokenType.OPERATOR && token.lexeme.equals("!")){
             consume();
@@ -300,91 +269,85 @@ public class Parser {
         }else if(current.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals("(")){
             consume();
             exp(current);
-            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")") && con){
+            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")){
                 consume();
             }else{
-                con = false;
                 errorRecover(')');
             }
             exp_p(current);
         }else { 
             errorRecover(token.lexeme);
-            con = false;
         }
         
     }
 
-    void exp_p(Token token){
-        if(token.token == TokenType.OPERATOR && con){
+    private void exp_p(Token token){
+        if(token.token == TokenType.OPERATOR){
             consume();
             exp(current);            
         }
     }
    
-    //FUNCTIONS
+    //ERROR METHODS
 
     void errorRecover(){
         statement.isValid = false;
-        if(!fix){
-            statement.message = "Invalid Syntax | Token";
-        }
-        do{
+        statement.message = "Invalid Syntax | Token";
+        while(!current.lexeme.equals(";") && !current.lexeme.equals("}") && !s_tokens.empty()){
             consume();
-        }while(!current.lexeme.equals(";") && !current.lexeme.equals("}") && !s_tokens.empty());
+        }
         consume();
         endStatement();
     }
 
     void errorRecover(char ch){
         statement.isValid = false;
-        if(!fix){
-            statement.message = "Expected/Missing '" + ch + "'" ;
-        }
-        do{
+        statement.message = "Expected/Missing '" + ch + "'" ;
+        while(!current.lexeme.equals(";") && !current.lexeme.equals("}") && !s_tokens.empty()){
             consume();
-        }while(!current.lexeme.equals(";") && !current.lexeme.equals("}") && !s_tokens.empty());
+        }
         consume();
         endStatement();
     }
 
     void errorRecover(String str){
         statement.isValid = false;
-        if(!fix){
-            statement.message = "Unknown Syntax \"" + str + "\"";
-        }
-        do{
+        statement.message = "Unknown Syntax \"" + str + "\"";
+        while(!current.lexeme.equals(";") && !current.lexeme.equals("}") && !s_tokens.empty()){
             consume();
-        }while(!current.lexeme.equals(";") && !current.lexeme.equals("}") && !s_tokens.empty());
+        }
         consume();
         endStatement();
     }
 
     void errorRecover(TokenType type){
         statement.isValid = false;
-        if(!fix){
-            statement.message = "Expected " + type;
-        }
-        do{
+        statement.message = "Expected " + type;        
+        while(!current.lexeme.equals(";") && !current.lexeme.equals("}") && !s_tokens.empty()){
             consume();
-        }while(!current.lexeme.equals(";") && !current.lexeme.equals("}") && !s_tokens.empty());
+        }
         consume();
         endStatement();
     }
 
     void errorRecover(String str, Boolean bool){
         statement.isValid = false;
-        if(!fix){
-            statement.message = "Invalid Token \"" + str + "\"";
-        }
-        do{
+        statement.message = "Invalid Token \"" + str + "\"";        
+        while(!current.lexeme.equals(";") && !current.lexeme.equals("}") && !s_tokens.empty()){
             consume();
-        }while(!current.lexeme.equals(";") && !current.lexeme.equals("}") && !s_tokens.empty());
+        }
         consume();
         endStatement();
     }
 
+    void errorTerminator(){
+        statement.isValid = false;
+        statement.message = "Expected/Missing ';'" ;
+        endStatement();
+    }
+
     void consume(){
-        if(!end && con && s_tokens.empty()){
+        if(!end){
             statement.tokens.add(current);
             if(!s_tokens.empty()){            
                 current = s_tokens.pop();
@@ -393,9 +356,10 @@ public class Parser {
                 }
 
                 if(current.token == TokenType.INVALID){
+                    if(hold){
+                        hold = false;
+                    }
                     errorRecover(current.lexeme, true);
-                    fix = true;
-                    con = false;
                 }
 
                 if(!s_tokens.empty())
@@ -408,14 +372,19 @@ public class Parser {
     }
 
     void endStatement(){
-        if(statement.tokens.size() != 0 && !hold){   
-            //System.out.println(current.lexeme);        
-            //System.out.println("FSTMT: " + statement.isValid + " | " + statement.message + "\n"); 
-            statement.line = statement.tokens.get(0).line;
-            fix = false;
-            statements.add(statement);
-            statement = new Statement();
-            stmt();
+        if((statement.tokens.size() != 0 && !hold) || !s_tokens.empty()){   //false-> true
+            if(!hold){
+                statement.line = statement.tokens.get(0).line;
+                statements.add(statement);            
+                statement = new Statement();   
+
+                if(!s_tokens.empty()){                        
+                    stmt();                
+                    end = false;
+                    hold = false;
+                    ended = false;
+                }
+            }
         }
     }
 

@@ -362,6 +362,9 @@ public class Lexer {
             }
         
         }
+        if(curState == State.Q6 || curState == State.Q7){
+            System.out.println("Error: Missing Close Quotation\n");
+        }
 
         return tokens;
     }

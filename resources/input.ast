@@ -1,4 +1,4 @@
-int a = 9, x, y ;
+int a = 9, x, y;
 
 String NAME= "astra", age = "21.0", msg = " Hello  -->  World";
 
@@ -8,7 +8,7 @@ bool is_Even = false;
 
 float z = 5.66, w = z + 1.94;
 
-print("MArk");
+print("Astra");
 print( 1 + 2 + 3 + (11 + 10));
 a = b;
 a = scan();
@@ -25,8 +25,8 @@ x = a * a;
 y = a - x / 11;
 a = a ^ 5;
 
-if(a == 5 & !is_Even) then 
-    print(" More than 5 " + x);         !* This is Single-Line Comment    
+if(a | b & !hello) then 
+    print(" More than 5 " + a);         !* This is Single-Line Comment    
 
 for x in range(a) do { 
     x = x + 6;

@@ -7,7 +7,7 @@ package LexAnalyzer;
     Programming Language:   Astra
 
     [/] Lexical Analyzer
-    [O] Syntax Analyzer
+    [/] Syntax Analyzer
     [] Semantic Analyzer
     
     Five (5) Members
@@ -37,18 +37,18 @@ public class Main {
         File file;
         
         header();
-        file = getSourceFile();                         //Locate the source file
+        file = getSourceFile();                                 //Locate the source file
         //file = new File("E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\input.ast");
         
-        String lines = scanFile(file);                  //Convert source file into a string
+        String lines = scanFile(file);                          //Convert source file into a string
 
-        Lexer lexer = new Lexer(lines);                 //Lexical Analyzer object
-        ArrayList<Token> tokens = lexer.execute();      //Convert string into tokens               
-        writeSymbolTable(tokens);                       //Write tokens in the symbol table file
+        Lexer lexer = new Lexer(lines);                         //Lexical Analyzer object
+        ArrayList<Token> tokens = lexer.execute();              //Convert string into tokens               
+        writeSymbolTable(tokens);                               //Write tokens in the symbol table file
         
-        Parser parser = new Parser(tokens);
-        ArrayList<Statement> statements = parser.execute();
-        writeSyntaxTable(statements);
+        Parser parser = new Parser(tokens);                     //Syntax Analyzer object
+        ArrayList<Statement> statements = parser.execute();     //Convert tokens into Statement
+        writeSyntaxTable(statements);                           //Write statement in the syntax table file
     }
 
     private static void header(){

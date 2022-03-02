@@ -56,7 +56,7 @@ Line: 10	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
 Line: 11	 	print	 	 	 	KEYWORD	 	 	 Output Statement
 Line: 11	 	(	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
 Line: 11	 	"	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
-Line: 11	 	MArk	 	 	 	CONSTANT	 	 	 String Constant Value
+Line: 11	 	Astra	 	 	 	CONSTANT	 	 	 String Constant Value
 Line: 11	 	"	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
 Line: 11	 	)	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
 Line: 12	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
@@ -122,11 +122,11 @@ Line: 27	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
 Line: 28	 	if	 	 	 	KEYWORD	 	 	 Conditional Statement
 Line: 28	 	(	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
 Line: 28	 	a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
-Line: 28	 	==	 	 	 	OPERATOR	 	 	 Relational Operator
-Line: 28	 	5	 	 	 	CONSTANT	 	 	 Integer Constant Value
+Line: 28	 	|	 	 	 	OPERATOR	 	 	 Logical Operator
+Line: 28	 	b	 	 	 	INDENTIFIER	 	 	 Variable 'b'
 Line: 28	 	&	 	 	 	OPERATOR	 	 	 Logical Operator
 Line: 28	 	!	 	 	 	OPERATOR	 	 	 Logical Operator
-Line: 28	 	is_Even	 	 	 	INDENTIFIER	 	 	 Variable 'is_Even'
+Line: 28	 	hello	 	 	 	INDENTIFIER	 	 	 Variable 'hello'
 Line: 28	 	)	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
 Line: 28	 	then	 	 	 	KEYWORD	 	 	 Conditional Statement
 Line: 29	 	print	 	 	 	KEYWORD	 	 	 Output Statement
@@ -135,7 +135,7 @@ Line: 29	 	"	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
 Line: 29	 	 More than 5 	 	 	 	CONSTANT	 	 	 String Constant Value
 Line: 29	 	"	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
 Line: 29	 	+	 	 	 	OPERATOR	 	 	 Arithmetic Operator
-Line: 29	 	x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+Line: 29	 	a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
 Line: 29	 	)	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
 Line: 29	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
 Line: 29	 	!*	 	 	 	COMMENT	 	 	 Single-Line Comment
