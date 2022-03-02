@@ -4,7 +4,7 @@ String NAME= "astra", age = "21.0", msg = " Hello  -->  World";
 
 char A = 'c';
 
-bool is_Even =false;
+bool is_Even = false;
 
 float z = 5.66, w = z + 1.94;
 

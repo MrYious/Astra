@@ -12,11 +12,12 @@ public class Parser {
 
     private Token current;
     private Token next;
-    private boolean end = false;
 
+    private boolean end = false;
     private boolean hold = false;
     private boolean ended = false;    
     private boolean fix = false;
+    private boolean con = true;
 
     //Try input for errors
 
@@ -32,7 +33,9 @@ public class Parser {
     public ArrayList<Statement> execute() {      
         current = s_tokens.pop();
         next = s_tokens.peek();
-        while(!s_tokens.empty()){
+        while(!s_tokens.empty()){            
+            System.out.println("Current: " + current.lexeme + " | " + current.token);
+            System.out.println("Statement: " + statement.isValid);
             stmt();
         }
 
@@ -42,121 +45,137 @@ public class Parser {
     //Productions
 
     void stmt(){
-        if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("{")){
-            consume();
-            hold = true;
-            stmt();
-            stmt_p();
-            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("}")){
-                hold = false;
+        Token token = current;
+        if(con){
+            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("{")){
                 consume();
-                endStatement();
-            }else{
-                hold = false;
-                errorRecover('}');
-            }
-        }else if(current.token == TokenType.KEYWORD && current.lexeme.equals("for")){
-            consume();
-            if(isIdentifier(current)){
-                consume();
-                if(current.token == TokenType.KEYWORD && current.lexeme.equals("in")){
-                    consume();
-                    if(current.token == TokenType.KEYWORD && current.lexeme.equals("range")){
+                hold = true;
+                stmt();
+                stmt_p();
+                if(con){
+                    if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("}")){
                         consume();
-                        if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
-                            consume();
-                            if(isVar(current)){
-                                consume();
-                                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")){
-                                    consume();
-                                    if(current.token == TokenType.KEYWORD && current.lexeme.equals("do")){
-                                        consume();
-                                        stmt();
-                                    }else{                                        
-                                        errorRecover(current.lexeme);
-                                    }
-                                }else{
-                                    errorRecover(')');
-                                }
-                            }else{                                
-                                errorRecover(TokenType.INDENTIFIER);
-                            }
-                        }else{
-                            errorRecover('(');
-                        }
-                    }else{                        
-                        errorRecover(current.lexeme);
-                    }
+                        endStatement();
+                    }else{
+                        errorRecover('}');
+                    }                    
+                    hold = false;
                 }else{
-                    errorRecover(current.lexeme);
-                }
-            }else{
-                errorRecover(TokenType.INDENTIFIER);
-            }
-        }else if(current.token == TokenType.KEYWORD && current.lexeme.equals("if")){
-            consume();
-            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
+                    con = true;
+                }                
+            }else if(current.token == TokenType.KEYWORD && current.lexeme.equals("for")){
                 consume();
-                exp(current);
-                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")){
+                if(isIdentifier(current)){
                     consume();
-                    if(current.token == TokenType.KEYWORD && current.lexeme.equals("then")){
+                    if(current.token == TokenType.KEYWORD && current.lexeme.equals("in")){
                         consume();
-                        hold = true;
-                        stmt();
-                        else_s(current);                        
+                        if(current.token == TokenType.KEYWORD && current.lexeme.equals("range")){
+                            consume();
+                            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
+                                consume();
+                                if(isVar(current)){
+                                    consume();
+                                    if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")){
+                                        consume();
+                                        if(current.token == TokenType.KEYWORD && current.lexeme.equals("do")){
+                                            consume();
+                                            stmt();
+                                        }else{                                        
+                                            errorRecover(current.lexeme);
+                                        }
+                                    }else{
+                                        errorRecover(')');
+                                    }
+                                }else{                                
+                                    errorRecover(TokenType.INDENTIFIER);
+                                }
+                            }else{
+                                errorRecover('(');
+                            }
+                        }else{                        
+                            errorRecover(current.lexeme);
+                        }
                     }else{
                         errorRecover(current.lexeme);
                     }
                 }else{
-                    errorRecover(')');
+                    errorRecover(TokenType.INDENTIFIER);
                 }
-            }else{
-                errorRecover('(');
-            }
-        }else if(current.token == TokenType.KEYWORD && current.lexeme.equals("print")){
-            consume();
-            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
+            }else if(current.token == TokenType.KEYWORD && current.lexeme.equals("if")){
                 consume();
-                isO_stmt(current);
-            }else{
-                errorRecover('(');
-            }
-        }else if(isDatatype(current)){
-            consume();
-            dec_stmt(current);
-            if(!ended){
-                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";") ){
+                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
                     consume();
-                    endStatement();
+                    exp(current);
+                    if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")") && con){
+                        consume();
+                        if(current.token == TokenType.KEYWORD && current.lexeme.equals("then")){
+                            consume();
+                            hold = true;
+                            stmt();
+                            else_s(current);                        
+                        }else{
+                            errorRecover(current.lexeme);
+                        }
+                    }else{
+                        errorRecover(')');
+                        con = true;
+                    }
                 }else{
-                    errorRecover(';');
+                    errorRecover('(');
                 }
-            }else{
-                end = false;
-            }
-            
-        }else if(isIdentifier(current)){
-            consume(); 
-            if(current.token == TokenType.OPERATOR && current.lexeme.equals("=")){
+            }else if(current.token == TokenType.KEYWORD && current.lexeme.equals("print")){
                 consume();
-                value(current);
-                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";")){
+                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("(")){
                     consume();
-                    endStatement();
+                    isO_stmt(current);
                 }else{
-                    errorRecover(';');
+                    errorRecover('(');
                 }
-            }else{
-                errorRecover('=');
+            }else if(isDatatype(current)){
+                consume();
+                dec_stmt(current);
+                if(!ended && con){                
+                    System.out.println("Entered 1 ");
+                    if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";") ){
+                        consume();
+                        endStatement();
+                    }else{
+                        errorRecover(';');
+                    }
+                }else{                
+                    System.out.println("Entered 2");
+                    end = false;
+                    con = true;
+                }
+                
+            }else if(isIdentifier(current)){
+                consume(); 
+                if(current.token == TokenType.OPERATOR && current.lexeme.equals("=")){
+                    consume();
+                    value(current);
+                    if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";")){
+                        consume();
+                        endStatement();
+                    }else{
+                        errorRecover(';');
+                    }
+                }else if (isIdentifier(current) && (next.token == TokenType.OPERATOR && next.lexeme.equals("="))){
+                    errorRecover(token.lexeme);
+                }else if ((current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("("))){
+                    errorRecover(token.lexeme);
+                }else{
+                    System.out.println(current.lexeme + " " + current.token);
+                    System.out.println(next.lexeme + " " + next.token);
+                    errorRecover('=');
+                }
+            }else {
+                errorRecover();
             }
-        }else {
-            errorRecover();
-        }       
+        }
     }
 
     private void stmt_p() {
-        if(!(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("}")) && !s_tokens.empty()){
+        if(!(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals("}")) && !s_tokens.empty() && con){
             stmt();
             stmt_p();
         }
@@ -174,6 +193,7 @@ public class Parser {
         }
     }
 
+    //in EXP
     private void isO_stmt(Token token) {
         if(isVar(token) && (next.token == TokenType.DELIMETER_BRACKET && next.lexeme.equals(")"))){
             consume();
@@ -181,58 +201,72 @@ public class Parser {
             if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";")){
                 consume();
                 endStatement();
-            }else{            
+            }else{
                 errorRecover(';');
             }
         }else{
             hold = true;
             exp(token);
             hold = false;
-            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")){
-                consume();
-                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";")){
+            if(con){
+                if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")){
                     consume();
-                    endStatement();
-                }else{            
-                    errorRecover(';');
+                    if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(";")){
+                        consume();
+                        endStatement();
+                    }else{            
+                        errorRecover(';');
+                    }
+                }else{
+                    errorRecover(')');
                 }
-            }else{
-                errorRecover(')');
-            }
+            }else{                
+                con = true; 
+            }           
         }
     }
 
     void dec_stmt(Token token){
-        if(isIdentifier(token)){            
-            consume();
-            ass_stmt(current);
-            x(current);            
-        }else{
-            errorRecover(TokenType.INDENTIFIER);
+        if(con){
+            if(isIdentifier(token)){            
+                consume();
+                ass_stmt(current);
+                if(con){                
+                    x(current);      
+                }  
+            }else{
+                errorRecover(TokenType.INDENTIFIER);
+                con = false;
+            }
         }
     }
 
     private void x(Token token) {
-        if(token.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals(",")){
-            if(current.token == TokenType.DELIMETER_BRACKET && next.lexeme.equals(";")){
-                errorRecover(TokenType.INDENTIFIER);
-            }else{
-                consume();
-                dec_stmt(current);
+        if(con){
+            if(token.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals(",")){
+                if(current.token == TokenType.DELIMETER_BRACKET && next.lexeme.equals(";")){
+                    errorRecover(TokenType.INDENTIFIER);
+                }else{
+                    consume();
+                    dec_stmt(current);
+                }
+            }else if (!(token.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals(";"))){
+                ended = true;
+                errorRecover(';');
             }
-        }else if (!(token.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals(";"))){
-            ended = true;
-            errorRecover(';');
+        }else {
+            con = true;
         }
+        
     }
 
     void ass_stmt(Token token){
-        if(current.token == TokenType.OPERATOR && token.lexeme.equals("=")){
+        if(token.token == TokenType.OPERATOR && token.lexeme.equals("=")){
             consume();
             value(current);
-        }else if (!(current.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals(",")) &&
-                !(current.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals(";"))
-        ){
+        }else if (!(token.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals(",")) &&
+                !(token.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals(";"))
+        ){  
             ended = true;
             errorRecover('=');
         }
@@ -256,7 +290,7 @@ public class Parser {
         }
     }
 
-    void exp(Token token){        
+    void exp(Token token){
         if(isVar(token)){
             consume();
             exp_p(current);
@@ -266,24 +300,26 @@ public class Parser {
         }else if(current.token == TokenType.DELIMETER_BRACKET && token.lexeme.equals("(")){
             consume();
             exp(current);
-            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")){
+            if(current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")") && con){
                 consume();
             }else{
+                con = false;
                 errorRecover(')');
             }
             exp_p(current);
         }else { 
             errorRecover(token.lexeme);
+            con = false;
         }
+        
     }
 
     void exp_p(Token token){
-        if(token.token == TokenType.OPERATOR){
+        if(token.token == TokenType.OPERATOR && con){
             consume();
             exp(current);            
         }
     }
-    
    
     //FUNCTIONS
 
@@ -335,8 +371,20 @@ public class Parser {
         endStatement();
     }
 
+    void errorRecover(String str, Boolean bool){
+        statement.isValid = false;
+        if(!fix){
+            statement.message = "Invalid Token \"" + str + "\"";
+        }
+        do{
+            consume();
+        }while(!current.lexeme.equals(";") && !current.lexeme.equals("}") && !s_tokens.empty());
+        consume();
+        endStatement();
+    }
+
     void consume(){
-        if(!end){
+        if(!end && con && s_tokens.empty()){
             statement.tokens.add(current);
             if(!s_tokens.empty()){            
                 current = s_tokens.pop();
@@ -345,8 +393,9 @@ public class Parser {
                 }
 
                 if(current.token == TokenType.INVALID){
-                    errorRecover(current.lexeme);
+                    errorRecover(current.lexeme, true);
                     fix = true;
+                    con = false;
                 }
 
                 if(!s_tokens.empty())
@@ -359,14 +408,16 @@ public class Parser {
     }
 
     void endStatement(){
-        if(statement.tokens.size() != 0 && !hold){            
+        if(statement.tokens.size() != 0 && !hold){   
+            //System.out.println(current.lexeme);        
+            //System.out.println("FSTMT: " + statement.isValid + " | " + statement.message + "\n"); 
             statement.line = statement.tokens.get(0).line;
             fix = false;
             statements.add(statement);
             statement = new Statement();
+            stmt();
         }
     }
-
 
     boolean isIdentifier(Token token){
         if(token.token == TokenType.INDENTIFIER){

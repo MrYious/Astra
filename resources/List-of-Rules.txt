@@ -66,7 +66,7 @@ str     Unknown Syntax "<inc_val>"      for != keywords
 <exp>           ::=      <var> <exp'>                                   //GOOD
 <exp'>          ::=      ''                                             //GOOD
 <exp'>          ::=      <op> <exp>                                     //GOOD
-        
+      
 -------------------------------------------------------------------             //GOOD
 
 //Literals and Variables
