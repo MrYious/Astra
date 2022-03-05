@@ -3,17 +3,17 @@
 ********		**********					************			***********
 
 L01 			int a = 9 , x , y ; 		Valid			
-L03 			String NAME = " astra " , age = " 21.0 " , msg = "  Hello  -->  World " ; 		Valid			
+L03 			String NAME = " astra " , age = " 21.0 " + a , msg = "  Hello  -->  World " ; 		Valid			
 L05 			char A = ' c ' ; 		Valid			
-L07 			bool is_Even = false ; 		Valid			
+L07 			bool is_Even = falseD ; 		Valid			
 L09 			float z = 5.66 , w = z + 1.94 ; 		Valid			
-L11 			print ( " Astra " ) ; 		Valid			
+L11 			prints ( " Astra " ) ; 		Invalid			Unknown Syntax "prints"
 L12 			print ( 1 + 2 + 3 + ( 11 + 10 ) ) ; 		Valid			
 L13 			a = b ; 		Valid			
 L14 			a = scan ( ) ; 		Valid			
 L23 			a = 1 + 1 ; 		Valid			
 L24 			x = a * a ; 		Valid			
-L25 			y = a - x / 11 ; 		Valid			
+L25 			y = a - x / 11 ; 		Valid		
 L26 			a = a ^ 5 ; 		Valid			
-L28 			if ( a | b & ! hello ) then print ( "  More than 5  " + a ) ; 		Valid			
-L31 			for x in range ( a ) do { x = x + 6 ; z = x + y ; } 		Valid			
+L28 			if ( ! hello ) then print ( "  More than 5  " + b ) ; else print ( helo ) ; 		Valid			
+L33 			for i in range ( 5 ) do { x = x + 6 ; z = x + y ; z = x + y ; z = x + y ; } 		Valid			

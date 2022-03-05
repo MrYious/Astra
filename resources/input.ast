@@ -1,10 +1,10 @@
-int a = 9, x, y;
+int a = 9, x , y;
 
-String NAME= "astra", age = "21.0", msg = " Hello  -->  World";
+String NAME= "astra", age = "21.0" + a, msg = " Hello  -->  World";
 
-char A = 'c';
+char A = 'c' ;
 
-bool is_Even = false;
+bool is_Even = falseD;
 
 float z = 5.66, w = z + 1.94;
 
@@ -25,10 +25,14 @@ x = a * a;
 y = a - x / 11;
 a = a ^ 5;
 
-if(a | b & !hello) then 
-    print(" More than 5 " + a);         !* This is Single-Line Comment    
+if(!hello) then 
+    print(" More than 5 " + b);         !* This is Single-Line Comment    
+else 
+    print(helo);
 
-for x in range(a) do { 
+for i in range(5) do { 
     x = x + 6;
+    z = x + y; 
+    z = x + y; 
     z = x + y; 
 } 

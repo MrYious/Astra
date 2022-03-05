@@ -23,6 +23,8 @@ Line: 3	 	=	 	 	 	OPERATOR	 	 	 Assignment Operator
 Line: 3	 	"	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
 Line: 3	 	21.0	 	 	 	CONSTANT	 	 	 String Constant Value
 Line: 3	 	"	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
+Line: 3	 	+	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+Line: 3	 	a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
 Line: 3	 	,	 	 	 	DELIMETER_BRACKET	 	 	 Separator
 Line: 3	 	msg	 	 	 	INDENTIFIER	 	 	 Variable 'msg'
 Line: 3	 	=	 	 	 	OPERATOR	 	 	 Assignment Operator
@@ -40,7 +42,7 @@ Line: 6	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
 Line: 7	 	bool	 	 	 	DATATYPE	 	 	 Boolean Data Type
 Line: 7	 	is_Even	 	 	 	INDENTIFIER	 	 	 Variable 'is_Even'
 Line: 7	 	=	 	 	 	OPERATOR	 	 	 Assignment Operator
-Line: 7	 	false	 	 	 	CONSTANT	 	 	 Boolean Constant Value
+Line: 7	 	falseD	 	 	 	INDENTIFIER	 	 	 Variable 'falseD'
 Line: 8	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
 Line: 9	 	float	 	 	 	DATATYPE	 	 	 Float Data Type
 Line: 9	 	z	 	 	 	INDENTIFIER	 	 	 Variable 'z'
@@ -53,7 +55,7 @@ Line: 9	 	z	 	 	 	INDENTIFIER	 	 	 Variable 'z'
 Line: 9	 	+	 	 	 	OPERATOR	 	 	 Arithmetic Operator
 Line: 9	 	1.94	 	 	 	CONSTANT	 	 	 Float Constant Value
 Line: 10	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
-Line: 11	 	print	 	 	 	KEYWORD	 	 	 Output Statement
+Line: 11	 	prints	 	 	 	INDENTIFIER	 	 	 Variable 'prints'
 Line: 11	 	(	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
 Line: 11	 	"	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
 Line: 11	 	Astra	 	 	 	CONSTANT	 	 	 String Constant Value
@@ -121,10 +123,6 @@ Line: 26	 	5	 	 	 	CONSTANT	 	 	 Integer Constant Value
 Line: 27	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
 Line: 28	 	if	 	 	 	KEYWORD	 	 	 Conditional Statement
 Line: 28	 	(	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
-Line: 28	 	a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
-Line: 28	 	|	 	 	 	OPERATOR	 	 	 Logical Operator
-Line: 28	 	b	 	 	 	INDENTIFIER	 	 	 Variable 'b'
-Line: 28	 	&	 	 	 	OPERATOR	 	 	 Logical Operator
 Line: 28	 	!	 	 	 	OPERATOR	 	 	 Logical Operator
 Line: 28	 	hello	 	 	 	INDENTIFIER	 	 	 Variable 'hello'
 Line: 28	 	)	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
@@ -135,30 +133,48 @@ Line: 29	 	"	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
 Line: 29	 	 More than 5 	 	 	 	CONSTANT	 	 	 String Constant Value
 Line: 29	 	"	 	 	 	DELIMETER_BRACKET	 	 	 Double Quotation
 Line: 29	 	+	 	 	 	OPERATOR	 	 	 Arithmetic Operator
-Line: 29	 	a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
+Line: 29	 	b	 	 	 	INDENTIFIER	 	 	 Variable 'b'
 Line: 29	 	)	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
 Line: 29	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
 Line: 29	 	!*	 	 	 	COMMENT	 	 	 Single-Line Comment
 Line: 30	 	 This is Single-Line Comment    	 	 	 	COMMENT	 	 	 Comment Contents
-Line: 31	 	for	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
-Line: 31	 	x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
-Line: 31	 	in	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
-Line: 31	 	range	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+Line: 30	 	else	 	 	 	KEYWORD	 	 	 Conditional Statement
+Line: 31	 	print	 	 	 	KEYWORD	 	 	 Output Statement
 Line: 31	 	(	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
-Line: 31	 	a	 	 	 	INDENTIFIER	 	 	 Variable 'a'
+Line: 31	 	helo	 	 	 	INDENTIFIER	 	 	 Variable 'helo'
 Line: 31	 	)	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
-Line: 31	 	do	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
-Line: 31	 	{	 	 	 	DELIMETER_BRACKET	 	 	 Group Statement - Open Brace
-Line: 32	 	x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
-Line: 32	 	=	 	 	 	OPERATOR	 	 	 Assignment Operator
-Line: 32	 	x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
-Line: 32	 	+	 	 	 	OPERATOR	 	 	 Arithmetic Operator
-Line: 32	 	6	 	 	 	CONSTANT	 	 	 Integer Constant Value
-Line: 33	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
-Line: 33	 	z	 	 	 	INDENTIFIER	 	 	 Variable 'z'
-Line: 33	 	=	 	 	 	OPERATOR	 	 	 Assignment Operator
-Line: 33	 	x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
-Line: 33	 	+	 	 	 	OPERATOR	 	 	 Arithmetic Operator
-Line: 33	 	y	 	 	 	INDENTIFIER	 	 	 Variable 'y'
-Line: 33	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
-Line: 34	 	}	 	 	 	DELIMETER_BRACKET	 	 	 Group Statement - Close Brace
+Line: 32	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+Line: 33	 	for	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+Line: 33	 	i	 	 	 	INDENTIFIER	 	 	 Variable 'i'
+Line: 33	 	in	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+Line: 33	 	range	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+Line: 33	 	(	 	 	 	DELIMETER_BRACKET	 	 	 Open Parenthesis
+Line: 33	 	5	 	 	 	CONSTANT	 	 	 Integer Constant Value
+Line: 33	 	)	 	 	 	DELIMETER_BRACKET	 	 	 Close Parenthesis
+Line: 33	 	do	 	 	 	KEYWORD	 	 	 Looping/Repetition Statement
+Line: 33	 	{	 	 	 	DELIMETER_BRACKET	 	 	 Group Statement - Open Brace
+Line: 34	 	x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+Line: 34	 	=	 	 	 	OPERATOR	 	 	 Assignment Operator
+Line: 34	 	x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+Line: 34	 	+	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+Line: 34	 	6	 	 	 	CONSTANT	 	 	 Integer Constant Value
+Line: 35	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+Line: 35	 	z	 	 	 	INDENTIFIER	 	 	 Variable 'z'
+Line: 35	 	=	 	 	 	OPERATOR	 	 	 Assignment Operator
+Line: 35	 	x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+Line: 35	 	+	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+Line: 35	 	y	 	 	 	INDENTIFIER	 	 	 Variable 'y'
+Line: 35	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+Line: 36	 	z	 	 	 	INDENTIFIER	 	 	 Variable 'z'
+Line: 36	 	=	 	 	 	OPERATOR	 	 	 Assignment Operator
+Line: 36	 	x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+Line: 36	 	+	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+Line: 36	 	y	 	 	 	INDENTIFIER	 	 	 Variable 'y'
+Line: 36	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+Line: 37	 	z	 	 	 	INDENTIFIER	 	 	 Variable 'z'
+Line: 37	 	=	 	 	 	OPERATOR	 	 	 Assignment Operator
+Line: 37	 	x	 	 	 	INDENTIFIER	 	 	 Variable 'x'
+Line: 37	 	+	 	 	 	OPERATOR	 	 	 Arithmetic Operator
+Line: 37	 	y	 	 	 	INDENTIFIER	 	 	 Variable 'y'
+Line: 37	 	;	 	 	 	DELIMETER_BRACKET	 	 	 Terminator
+Line: 38	 	}	 	 	 	DELIMETER_BRACKET	 	 	 Group Statement - Close Brace

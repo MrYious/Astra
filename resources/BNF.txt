@@ -1,4 +1,4 @@
-OLD BNF 
+BNF GRAMMAR
 
 <stmt>          =       { <stmt> } | <stmts> | <input_stmt> ; | <output_stmt> ; | <dec_stmt> ; | <ass_stmt> ; | <if_stmt> | <for_stmt>
 <stmts>         =       <stmt> <stmt>

@@ -24,51 +24,52 @@ ch      Expected "<og_val>"             for != symbols
 tt      Expected identifier             for != ident / var
 str     Unknown Syntax "<inc_val>"      for != keywords
         Invalid Syntax / Token          
+
 --------------------------------------------------------------------------------------------------------------------------------
 Left-factored && Removed left recursion
 
 //BLOCK
-<stmt>          ::=      { <stmt> <stmt'> }                             //GOOD
-<stmt'>         ::=      ''                                             //GOOD
-<stmt'>         ::=      <stmt> <stmt'>                                 //GOOD
+<stmt>          ::=      { <stmt> <stmt'> }                             
+<stmt'>         ::=      ''                                             
+<stmt'>         ::=      <stmt> <stmt'>                                 
 
 //FOR
-<stmt>          ::=      for <ident> in range ( <var> ) do <stmt>       //GOOD
+<stmt>          ::=      for <ident> in range ( <var> ) do <stmt>       
 
 //IF
-<stmt>          ::=      if ( <exp> ) then <stmt> <else>                //GOOD
-<else>          ::=      ''                                             //GOOD
-<else>          ::=      else <stmt>                                    //GOOD
+<stmt>          ::=      if ( <exp> ) then <stmt> <else>                
+<else>          ::=      ''                                             
+<else>          ::=      else <stmt>                                    
 
 //OUTPUT
-<stmt>          ::=      print ( <o_stmt>                               //GOOD
-<o_stmt>        ::=      <var> ) ;                                      //GOOD
-<o_stmt>        ::=      <exp> ) ;                                      //GOOD
+<stmt>          ::=      print ( <o_stmt>                               
+<o_stmt>        ::=      <var> ) ;                                      
+<o_stmt>        ::=      <exp> ) ;                                      
 
 //DECLARE
-<stmt>          ::=      <ident> = <value> ;                            //GOOD
-<stmt>          ::=      <data_type> <dec_stmt> ;                       //GOOD
+<stmt>          ::=      <ident> = <value> ;                            
+<stmt>          ::=      <data_type> <dec_stmt> ;                       
 
-<dec_stmt>      ::=      <ident> <ass_stmt> <x>                         //GOOD
+<dec_stmt>      ::=      <ident> <ass_stmt> <x>                         
 
-<ass_stmt>      ::=      ''                                             //GOOD
-<ass_stmt>      ::=      = <value>                                      //GOOD         
+<ass_stmt>      ::=      ''                                             
+<ass_stmt>      ::=      = <value>                                               
 
-<x>             ::=      ''                                             //GOOD
-<x>             ::=      , <dec_stmt>                                   //GOOD
+<x>             ::=      ''                                             
+<x>             ::=      , <dec_stmt>                                   
 
-<value>         ::=      scan ( )                                       //GOOD
-<value>         ::=      <exp>                                          //GOOD
+<value>         ::=      scan ( )                                       
+<value>         ::=      <exp>                                          
 
 
 //EXP
-<exp>           ::=      ( <exp> )                                      //GOOD
-<exp>           ::=      ! <exp>                                        //GOOD
-<exp>           ::=      <var> <exp'>                                   //GOOD
-<exp'>          ::=      ''                                             //GOOD
-<exp'>          ::=      <op> <exp>                                     //GOOD
+<exp>           ::=      ( <exp> )                                      
+<exp>           ::=      ! <exp>                                        
+<exp>           ::=      <var> <exp'>                                   
+<exp'>          ::=      ''                                             
+<exp'>          ::=      <op> <exp>                                     
       
--------------------------------------------------------------------             //GOOD
+-------------------------------------------------------------------             
 
 //Literals and Variables
 <var>           ::=      <ident>                                
@@ -83,7 +84,7 @@ Left-factored && Removed left recursion
 
 --------------------------------------------------------------------
 
-<start>
+
 <stmt>
 <stmt'>
 <else>

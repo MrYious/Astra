@@ -33,7 +33,7 @@ public class Parser {
 
         return statements;
     }
-
+    
     //Productions
     private void stmt(){
         Token token = current;
@@ -97,7 +97,7 @@ public class Parser {
                     consume();
                     if(current.token == TokenType.KEYWORD && current.lexeme.equals("then")){
                         consume();
-                        hold = true;
+                        hold = true;                        
                         stmt();
                         else_s(current);                        
                     }else{
@@ -149,7 +149,7 @@ public class Parser {
             }else{
                 errorRecover('=');
             }
-        }else {
+        }else {            
             errorRecover();
         }
     }
@@ -181,7 +181,7 @@ public class Parser {
                 consume();
                 endStatement();
             }else{
-                 errorTerminator();
+                errorTerminator();
             }
         }else if((current.token == TokenType.DELIMETER_BRACKET && current.lexeme.equals(")")) && (next.token == TokenType.DELIMETER_BRACKET && next.lexeme.equals(";"))){
             consume();
@@ -373,7 +373,7 @@ public class Parser {
 
     void endStatement(){
         if((statement.tokens.size() != 0 && !hold) || !s_tokens.empty()){   //false-> true
-            if(!hold){
+            if(!hold && !current.lexeme.equals("else")){
                 statement.line = statement.tokens.get(0).line;
                 statements.add(statement);            
                 statement = new Statement();   
@@ -394,6 +394,7 @@ public class Parser {
         }
         return false;
     }
+    
     boolean isConstant(Token token){
         if(token.token == TokenType.CONSTANT){
             return true;
@@ -405,24 +406,28 @@ public class Parser {
         }
         return false;
     }
+    
     boolean isComment(Token token){
         if(token.token == TokenType.COMMENT){
             return true;
         }
         return false;
     }
+    
     boolean isInvalid(Token token){
         if(token.token == TokenType.INVALID){
             return true;
         }
         return false;
     }
+    
     boolean isDatatype(Token token){
         if(token.token == TokenType.DATATYPE){
             return true;
         }
         return false;
     }
+    
     boolean isVar(Token token){
         
         if(isIdentifier(token) || isConstant(token)){

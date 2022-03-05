@@ -32,8 +32,8 @@ public class Main {
     
     public static void main(String[] args) throws FileNotFoundException{
 
-        // E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\input.ast
-        // E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\dictionary.astd
+        // E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\input.ast       
+        // E:\\BSCS 3-3\\PPL\\PROJECT\\AstraLang\\AstraLang\\resources\\dictionary.astd 
         File file;
         
         header();
