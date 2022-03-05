@@ -1,4 +1,4 @@
-package LexAnalyzer;
+package Compiler;
 
 /** 
     SUBJECT: Principles of Programming Languages;

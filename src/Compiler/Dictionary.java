@@ -1,4 +1,4 @@
-package LexAnalyzer;
+package Compiler;
 
 import java.io.File;
 import java.util.HashMap;

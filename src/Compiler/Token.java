@@ -1,4 +1,4 @@
-package LexAnalyzer;
+package Compiler;
 
 public class Token {
     

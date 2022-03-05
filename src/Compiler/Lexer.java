@@ -1,4 +1,4 @@
-package LexAnalyzer;
+package Compiler;
 
 import java.util.ArrayList;
 import java.io.FileNotFoundException;

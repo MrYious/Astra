@@ -1,4 +1,4 @@
-package LexAnalyzer;
+package Compiler;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
